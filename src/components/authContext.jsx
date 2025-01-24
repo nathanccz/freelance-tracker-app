@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import { Client, Account, OAuthProvider } from "appwrite";
+import { Client, Account, OAuthProvider, ID } from "appwrite";
 
 export const AuthContext = createContext(null);
 
@@ -27,7 +27,8 @@ export default function AuthContextProvider({ children }) {
         setIsAuthenticated(true);
         console.log("User authenticated:", userData);
       } catch (error) {
-        window.location.replace("/");
+        console.log(error);
+        // window.location.replace("/");
       } finally {
         setLoading(false);
       }
@@ -39,10 +40,28 @@ export default function AuthContextProvider({ children }) {
   const handleGoogleLogin = () => {
     account.createOAuth2Session(
       OAuthProvider.Google,
-      "https://100devs-freelance.netlify.app//dashboard",
-      "https://100devs-freelance.netlify.app/",
+      "http://localhost:5173/dashboard",
+      "http://localhost:5173/",
       []
     );
+  };
+
+  const handleEmailSignup = async (email, password) => {
+    try {
+      const response = await account.create(ID.unique(), email, password);
+      handleEmailLogin(email, password);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleEmailLogin = async (email, password) => {
+    try {
+      const session = account.createEmailPasswordSession(email, password);
+      window.location.replace("/dashboard");
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const handleLogoutUser = async () => {
@@ -54,6 +73,8 @@ export default function AuthContextProvider({ children }) {
     <AuthContext.Provider
       value={{
         handleGoogleLogin,
+        handleEmailSignup,
+        handleEmailLogin,
         handleLogoutUser,
         isAuthenticated,
         loading,
