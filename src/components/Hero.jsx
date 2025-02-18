@@ -27,7 +27,7 @@ export default function Hero() {
                         <input type="text" className="grow" placeholder="Email" />
                     </label>
                     <div className="flex gap-5 justify-center">
-                        <a href="#">
+                        <a href="/dashboard">
                             <button className="btn btn-success">Get Started</button>
                         </a>
                         <a href="/dashboard">

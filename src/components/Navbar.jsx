@@ -7,7 +7,7 @@ export default function Navbar() {
             </div>
             <div className="flex-none">
                 <ul className="menu menu-horizontal px-1">
-                    <a href="/login">
+                    <a href="/dashboard">
                     <li className="btn btn-primary">Sign In</li>
                     </a>
                 </ul>
