@@ -7,7 +7,7 @@ export const AppwriteContext = createContext(null)
 export default function AppwriteContextProvider({ children }) {
     const [projects, setProjects] = useState([])
     const [toastActive, setToastActive] = useState(false)
-    console.log(import.meta.env.VITE_APPWRITE_ENDPOINT)
+
     const client = new Client()
                 .setEndpoint(import.meta.env.VITE_APPWRITE_ENDPOINT)
                 .setProject(import.meta.env.VITE_APPWRITE_PROJECT_ID);
