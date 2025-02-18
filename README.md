@@ -6,9 +6,9 @@ Welcome to my **Mini Hackathon 2025** repository!
 
 ## 📜 About My Project
 
-For the Mini Hackathon for Jobuary 2025, I created an freelancing tracker app for the 100Devs community. It will let you track leads, active clients, and your income over time. Plus, it serves as a resource hub for beginners and seasoned freelancers alike.
+For the Mini Hackathon for Jobuary 2025, I created a freelancing tracker app for the 100Devs community. It will let you track leads, active clients, and your income over time. It will also let you track your progress on individual project. Plus, it serves as a resource hub for beginners and seasoned freelancers alike.
 
-It's build on React and Vite, plus Appwrite for back-end functionality.
+It's built on React and Vite, plus Appwrite for back-end functionality.
 
 ---
 
