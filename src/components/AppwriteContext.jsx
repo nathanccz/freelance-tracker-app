@@ -7,6 +7,7 @@ export const AppwriteContext = createContext(null)
 export default function AppwriteContextProvider({ children }) {
     const [projects, setProjects] = useState([])
     const [toastActive, setToastActive] = useState(false)
+    const [message, setMessage] = useState('')
 
     const client = new Client()
                 .setEndpoint(import.meta.env.VITE_APPWRITE_ENDPOINT)
@@ -36,6 +37,23 @@ export default function AppwriteContextProvider({ children }) {
                 ID.unique(),
                 data
             )
+            setMessage('New project has been added!')
+            setToastActive(true)
+            await new Promise(resolve => setTimeout(resolve, 3000))
+            setToastActive(false)
+        } catch (error) {
+            console.log(error)
+        } 
+    }
+
+    const handleDeleteProject = async (id) => {
+        try {
+            const response = await databases.deleteDocument(
+                import.meta.env.VITE_APPWRITE_DATABASE_ID,
+                import.meta.env.VITE_APPWRITE_COLLECTION_ID,
+                id,
+            )
+            setMessage('Project was deleted!')
             setToastActive(true)
             await new Promise(resolve => setTimeout(resolve, 3000))
             setToastActive(false)
@@ -48,13 +66,14 @@ export default function AppwriteContextProvider({ children }) {
         <AppwriteContext.Provider
             value={{
                 handleCreateProject,
+                handleDeleteProject,
                 toastActive,
                 setToastActive,
                 projects,
             }}
         >
             {children}
-            {toastActive && <Toast text='New project added!' />}
+            {toastActive && <Toast text={message} />}
         </AppwriteContext.Provider>
     )
 }
