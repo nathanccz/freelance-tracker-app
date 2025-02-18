@@ -18,7 +18,7 @@ export default function AppwriteContextProvider({ children }) {
             async function fetchProjects() {
                 const response = await databases.listDocuments(
                     "67b1856a003bf1487186",
-                    "67b194a70008ed89744c",
+                    "67b3e6000021c26d6496",
                 );
                 console.log(response)
                 setProjects(response.documents)
@@ -33,7 +33,7 @@ export default function AppwriteContextProvider({ children }) {
         try {
             const response = await databases.createDocument(
                 '67b1856a003bf1487186',
-                '67b194a70008ed89744c',
+                '67b3e6000021c26d6496',
                 ID.unique(),
                 data
             )

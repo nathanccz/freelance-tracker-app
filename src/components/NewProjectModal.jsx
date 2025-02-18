@@ -10,6 +10,7 @@ export default function NewProjectModal({ handleCreateProject }) {
         ['email']: '',
         ['phone']: '',
         ['is-active']: false,
+        ['created-at']: new Date(),
     })
 
     useEffect(() => {

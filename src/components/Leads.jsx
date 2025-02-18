@@ -5,7 +5,7 @@ import Card from "./Card";
 
 export default function Leads({ setActiveRoute }) {
     const [leads, setLeads] = useState([])
-    
+    const [modalContent, setModalContent] = useState({})
     const { projects } = useAppwriteContext()
 
     useEffect(() => {
@@ -14,7 +14,7 @@ export default function Leads({ setActiveRoute }) {
 
     useEffect(() => {
         console.log(projects)
-        setLeads(projects)
+        setLeads(projects.filter(project => project['is-active'] === 'false'))
     }, [projects])
    
     const listOfLeads = leads.map(lead => (
