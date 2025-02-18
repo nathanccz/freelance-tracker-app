@@ -20,7 +20,6 @@ export default function AppwriteContextProvider({ children }) {
                     import.meta.env.VITE_APPWRITE_DATABASE_ID,
                     import.meta.env.VITE_APPWRITE_COLLECTION_ID,
                 );
-                console.log(response)
                 setProjects(response.documents)
             }
             fetchProjects()
@@ -37,14 +36,12 @@ export default function AppwriteContextProvider({ children }) {
                 ID.unique(),
                 data
             )
-            console.log(response)
-        } catch (error) {
-            console.log(error)
-        } finally {
             setToastActive(true)
             await new Promise(resolve => setTimeout(resolve, 3000))
             setToastActive(false)
-        }
+        } catch (error) {
+            console.log(error)
+        } 
     }
 
     return (
