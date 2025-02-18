@@ -7,18 +7,18 @@ export const AppwriteContext = createContext(null)
 export default function AppwriteContextProvider({ children }) {
     const [projects, setProjects] = useState([])
     const [toastActive, setToastActive] = useState(false)
-
+    console.log(import.meta.env.VITE_APPWRITE_ENDPOINT)
     const client = new Client()
-                .setEndpoint('https://cloud.appwrite.io/v1')
-                .setProject('67b15c17003db32aa5bf');
+                .setEndpoint(import.meta.env.VITE_APPWRITE_ENDPOINT)
+                .setProject(import.meta.env.VITE_APPWRITE_PROJECT_ID);
     const databases = new Databases(client);
 
     useEffect(() => {
         try {
             async function fetchProjects() {
                 const response = await databases.listDocuments(
-                    "67b1856a003bf1487186",
-                    "67b3e6000021c26d6496",
+                    import.meta.env.VITE_APPWRITE_DATABASE_ID,
+                    import.meta.env.VITE_APPWRITE_COLLECTION_ID,
                 );
                 console.log(response)
                 setProjects(response.documents)
@@ -32,8 +32,8 @@ export default function AppwriteContextProvider({ children }) {
     const handleCreateProject = async (data) => {
         try {
             const response = await databases.createDocument(
-                '67b1856a003bf1487186',
-                '67b3e6000021c26d6496',
+                import.meta.env.VITE_APPWRITE_DATABASE_ID,
+                import.meta.env.VITE_APPWRITE_COLLECTION_ID,
                 ID.unique(),
                 data
             )
