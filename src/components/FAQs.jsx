@@ -6,7 +6,7 @@ export default function FAQs({ setActiveRoute }) {
     }, [])
     return (
         <main className='p-10 w-full'>
-            <h1 class="text-3xl font-bold mb-4">Frequently Asked Questions (FAQs)</h1>
+            <h1 className="text-3xl font-bold mb-4">Frequently Asked Questions (FAQs)</h1>
             <div className="collapse collapse-arrow bg-base-200">
                 <input type="radio" name="my-accordion-2" defaultChecked />
                 <div className="collapse-title text-xl font-medium">How do I get clients?</div>

@@ -11,13 +11,13 @@ export default function Main({ setActiveRoute }) {
     useEffect(() => {
         setActiveRoute('dashboard')
         if (projects.length === 0) return
-        setTotalLeads(projects.filter(project => project['is-active'] === 'false').length)
-        setTotalActive(projects.filter(project => project['is-active'] === 'true').length)
+        setTotalLeads(projects.filter(project => project['is-active'] === false).length)
+        setTotalActive(projects.filter(project => project['is-active'] === true).length)
     }, [projects])
 
     return (
         <main className='p-10 w-full'>
-            <h1 class="text-3xl font-bold mb-4">Dashboard</h1>
+            <h1 className="text-3xl font-bold mb-4">Dashboard</h1>
             <button className="btn btn-primary mb-3" onClick={() => document.getElementById('my_modal_5').showModal()}>Create New Project</button>
             <div className="flex flex-col gap-6 lg:flex-row">
                 <div className="card bg-base-100 w-full shadow-xl cursor-pointer">

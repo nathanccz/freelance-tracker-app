@@ -14,7 +14,7 @@ export default function ActiveClients({ setActiveRoute }) {
 
     useEffect(() => {
         console.log(projects)
-        setClients(projects.filter(client => client['is-active'] === 'true'))
+        setClients(projects.filter(client => client['is-active'] === true))
     }, [projects])
    
     const listOfClients = clients.map(client => (

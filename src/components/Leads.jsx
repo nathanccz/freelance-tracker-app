@@ -14,7 +14,7 @@ export default function Leads({ setActiveRoute }) {
 
     useEffect(() => {
         console.log(projects)
-        setLeads(projects.filter(project => project['is-active'] === 'false'))
+        setLeads(projects.filter(project => project['is-active'] === false))
     }, [projects])
    
     const listOfLeads = leads.map(lead => (

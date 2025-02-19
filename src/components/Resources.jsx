@@ -8,7 +8,7 @@ export default function Resources({ setActiveRoute }) {
 
     return (
         <main className='p-10 w-full'>
-            <h1 class="text-3xl font-bold mb-4">Toolkit</h1>
+            <h1 className="text-3xl font-bold mb-4">Toolkit</h1>
             <p className="mb-4">Here’s a collection of helpful templates and docs to make your freelance web development life easier. Whether it’s proposals, contracts, or invoices, these resources keep you organized and looking professional.</p>
             <section className="w-full rounded bg-slate-300 p-3 mb-3">
                 <h2 className="font-bold text-xl mb-3">Client Agreements</h2>

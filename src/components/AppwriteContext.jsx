@@ -35,7 +35,10 @@ export default function AppwriteContextProvider({ children }) {
                 import.meta.env.VITE_APPWRITE_DATABASE_ID,
                 import.meta.env.VITE_APPWRITE_COLLECTION_ID,
                 ID.unique(),
-                data
+                {
+                    ...data,
+                    ['is-active']: data['is-active'] === 'true'
+                }
             )
             setMessage('New project has been added!')
             setToastActive(true)

@@ -9,7 +9,7 @@ export default function NewProjectModal({ handleCreateProject }) {
         ['business-address']: '',
         ['email']: '',
         ['phone']: '',
-        ['is-active']: false,
+        ['is-active']: '',
         ['created-at']: new Date(),
     })
 
@@ -32,7 +32,7 @@ export default function NewProjectModal({ handleCreateProject }) {
                 <div className="flex flex-col gap-2 w-[60%] mx-auto">
                     <label className="input input-bordered flex items-center gap-2">
                         <Icon icon="ic:baseline-business" className='text-2xl'/>
-                        <input type="text" className="grow" placeholder="Business name" name="business-name" onChange={handleInputChange}  value={formData.businessName}/>
+                        <input type="text" className="grow" placeholder="Business name" name="business-name" onChange={handleInputChange} />
                     </label>
                     <select className="select w-full max-w-xs" name="business-type" onChange={handleInputChange}>
                         <option selected disabled>Type of business</option>
@@ -67,8 +67,8 @@ export default function NewProjectModal({ handleCreateProject }) {
                     </label>
                     <select className="select select-bordered w-full max-w-xs" name="is-active" onChange={handleInputChange}>
                         <option disabled selected>Is this an active client?</option>
-                        <option value={false}>No, this is a prospective client.</option>
-                        <option value={true}>Yes, this is an active client.</option>
+                        <option value={"false"}>No, this is a prospective client.</option>
+                        <option value={"true"}>Yes, this is an active client.</option>
                     </select>
                 </div>
                 <div className="flex gap-3 w-full justify-end items-center mt-5"> 
