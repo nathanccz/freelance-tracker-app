@@ -3,7 +3,7 @@ import { formatDate } from "../../utils/helpers";
 import { useAppwriteContext } from "./AppwriteContext";
 
 export default function Card({ data }) {
-    const { handleDeleteProject } = useAppwriteContext()
+    const { handleDeleteProject, handleEditModalOpen } = useAppwriteContext()
     return (
         <div className="card bg-base-200 w-84 shadow-xl">
             <div className="card-body relative">
@@ -12,7 +12,7 @@ export default function Card({ data }) {
                     <div tabIndex={0} role="button" className="btn m-1"><Icon icon="uiw:more" className='text-xl'/></div>
                     <ul tabIndex={0} className="dropdown-content menu bg-slate-300 rounded-box z-[1] w-52 p-2 shadow font-bold">
                         <li><a onClick={() => handleDeleteProject(data.$id)}>Delete</a></li>
-                        <li><a>Edit</a></li>
+                        <li><a onClick={() => handleEditModalOpen(data.$id)}>Edit</a></li>
                         <li><a>Add Note</a></li>
                     </ul>
                 </div>

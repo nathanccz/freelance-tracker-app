@@ -5,7 +5,6 @@ import Card from "./Card";
 
 export default function Leads({ setActiveRoute }) {
     const [leads, setLeads] = useState([])
-    const [modalContent, setModalContent] = useState({})
     const { projects } = useAppwriteContext()
 
     useEffect(() => {

@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useState, useMemo } from "react";
 import { Client, Databases, ID, Query } from "appwrite";
 import Toast from "./Toast";
+import ProjectModal from "./ProjectModal";
 
 export const AppwriteContext = createContext(null)
 
@@ -8,18 +9,25 @@ export default function AppwriteContextProvider({ children }) {
     const [projects, setProjects] = useState([])
     const [toastActive, setToastActive] = useState(false)
     const [message, setMessage] = useState('')
+    const [projectToEdit, setProjecttoEdit] = useState(null)
+    const [APPWRITE_URL, PROJECT_ID, DATABASE_ID, COLLECTION_ID] = [
+        import.meta.env.VITE_APPWRITE_ENDPOINT,
+        import.meta.env.VITE_APPWRITE_PROJECT_ID,
+        import.meta.env.VITE_APPWRITE_DATABASE_ID,
+        import.meta.env.VITE_APPWRITE_COLLECTION_ID
+    ]
 
     const client = new Client()
-                .setEndpoint(import.meta.env.VITE_APPWRITE_ENDPOINT)
-                .setProject(import.meta.env.VITE_APPWRITE_PROJECT_ID);
+                .setEndpoint(APPWRITE_URL)
+                .setProject(PROJECT_ID);
     const databases = new Databases(client);
 
     useEffect(() => {
         try {
             async function fetchProjects() {
                 const response = await databases.listDocuments(
-                    import.meta.env.VITE_APPWRITE_DATABASE_ID,
-                    import.meta.env.VITE_APPWRITE_COLLECTION_ID,
+                    DATABASE_ID,
+                    COLLECTION_ID,
                 );
                 setProjects(response.documents)
             }
@@ -32,8 +40,8 @@ export default function AppwriteContextProvider({ children }) {
     const handleCreateProject = async (data) => {
         try {
             const response = await databases.createDocument(
-                import.meta.env.VITE_APPWRITE_DATABASE_ID,
-                import.meta.env.VITE_APPWRITE_COLLECTION_ID,
+                DATABASE_ID,
+                COLLECTION_ID,
                 ID.unique(),
                 {
                     ...data,
@@ -52,8 +60,8 @@ export default function AppwriteContextProvider({ children }) {
     const handleDeleteProject = async (id) => {
         try {
             const response = await databases.deleteDocument(
-                import.meta.env.VITE_APPWRITE_DATABASE_ID,
-                import.meta.env.VITE_APPWRITE_COLLECTION_ID,
+                DATABASE_ID,
+                COLLECTION_ID,
                 id,
             )
             setMessage('Project was deleted!')
@@ -65,18 +73,45 @@ export default function AppwriteContextProvider({ children }) {
         } 
     }
 
+    const handleEditModalOpen = (id) => {
+        setProjecttoEdit(projects.filter(project => project.$id === id)[0])
+        document.getElementById('my_modal_5').showModal()
+    }
+
+    const handleEditProject = async (data) => {
+        console.log(data)
+        try {
+            const result = await databases.updateDocument(
+                DATABASE_ID,
+                COLLECTION_ID, 
+                projectToEdit.$id,
+                {
+                    ...data,
+                    ['is-active']: data['is-active'] === 'true'
+                }
+            );
+            setMessage('Project was updated!')
+            setToastActive(true)
+            await new Promise(resolve => setTimeout(resolve, 3000))
+            setToastActive(false)
+            setProjecttoEdit([])
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     return (
         <AppwriteContext.Provider
             value={{
                 handleCreateProject,
                 handleDeleteProject,
-                toastActive,
-                setToastActive,
+                handleEditModalOpen,
                 projects,
             }}
         >
             {children}
             {toastActive && <Toast text={message} />}
+            <ProjectModal handleCreateProject={handleCreateProject} handleEditProject={handleEditProject} data={projectToEdit}/>
         </AppwriteContext.Provider>
     )
 }

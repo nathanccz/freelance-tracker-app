@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { useAppwriteContext } from "./AppwriteContext";
-import NewProjectModal from "./NewProjectModal";
 import { Icon } from "@iconify/react/dist/iconify.js"
 
 export default function Main({ setActiveRoute }) {
@@ -43,8 +42,6 @@ export default function Main({ setActiveRoute }) {
                     </div>
                 </div>
             </div>
-            
-            <NewProjectModal handleCreateProject={handleCreateProject}/>
         </main>
     )
 }

@@ -11,3 +11,12 @@ export function formatDate(date) {
 
     return `${months[month]} ${day}, ${year}`
 }
+
+export function filterDefaultFields(document) {
+  return Object.keys(document).reduce((acc, key) => {
+      if (!key.startsWith('$')) {
+          acc[key] = document[key];
+      }
+      return acc;
+  }, {});
+}
