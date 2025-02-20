@@ -80,15 +80,16 @@ export default function AppwriteContextProvider({ children }) {
 
     const handleEditProject = async (data) => {
         console.log(data)
+        const document = typeof data['is-active'] === 'boolean' ? data : {
+            ...data,
+            ['is-active']: data['is-active'] === 'true'
+        } 
         try {
             const result = await databases.updateDocument(
                 DATABASE_ID,
                 COLLECTION_ID, 
                 projectToEdit.$id,
-                {
-                    ...data,
-                    ['is-active']: data['is-active'] === 'true'
-                }
+                document
             );
             setMessage('Project was updated!')
             setToastActive(true)

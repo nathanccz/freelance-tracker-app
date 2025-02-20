@@ -19,8 +19,8 @@ export default function ProjectModal({ handleCreateProject, handleEditProject, d
         if (data) {
             setIsEditing(true)
             setFormData(filterDefaultFields(data))
+            console.log(formData)
         }
-        console.log(formData)
     }, [data])
     
     const handleInputChange = event => {
@@ -71,7 +71,7 @@ export default function ProjectModal({ handleCreateProject, handleEditProject, d
                         <Icon icon="line-md:phone" className='text-2xl'/>
                         <input type="text" className="grow" placeholder="Phone" name="phone" onChange={handleInputChange} defaultValue={formData['phone']}/>
                     </label>
-                    <select className="select select-bordered w-full max-w-xs" name="is-active" onChange={handleInputChange}>
+                    <select className="select select-bordered w-full max-w-xs" name="is-active" onChange={handleInputChange} defaultValue={formData['is-active']}>
                         <option disabled selected>Is this an active client?</option>
                         <option value={"false"}>No, this is a prospective client.</option>
                         <option value={"true"}>Yes, this is an active client.</option>
