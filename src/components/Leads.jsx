@@ -3,7 +3,7 @@ import { useAppwriteContext } from "./AppwriteContext";
 import Card from "./Card";
 
 
-export default function Leads({ setActiveRoute }) {
+export default function Leads({ setActiveRoute, setProjectView }) {
     const [leads, setLeads] = useState([])
     const { projects } = useAppwriteContext()
 
@@ -17,7 +17,7 @@ export default function Leads({ setActiveRoute }) {
     }, [projects])
    
     const listOfLeads = leads.map(lead => (
-       <Card data={lead} key={lead.$id}/> 
+       <Card data={lead} key={lead.$id} setProjectView={setProjectView}/> 
     ))
 
     return (

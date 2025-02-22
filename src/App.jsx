@@ -33,6 +33,9 @@ function App() {
           <Route path="/faqs">
               <Route index element={<Dashboard route={'faqs'}/>} />
           </Route>
+          <Route path="/project/:id">
+              <Route index element={<Dashboard route={'project'}/>} />
+          </Route>
       </Routes>
   </BrowserRouter>
     

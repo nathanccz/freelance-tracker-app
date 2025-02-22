@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from 'react-router-dom';
 // import { useAppwriteContext } from "./AppwriteContext";
 
 export default function Sidebar({ activeRoute }) {
@@ -25,12 +26,12 @@ export default function Sidebar({ activeRoute }) {
             </div>
         </div>
         <ul className="menu bg-base-200 rounded-box w-full gap-3 text-lg font-bold">
-            <li className={activeRoute === 'dashboard' ? 'bg-gray-500' : undefined}><a href="/dashboard">Dashboard</a></li>
-            <li className={activeRoute === 'leads' ? 'bg-gray-500' : undefined}><a href="/leads">Leads</a></li>
-            <li className={activeRoute === 'active' ? 'bg-gray-500' : undefined}><a href="active">Active Clients</a></li>
-            <li className={activeRoute === 'history' ? 'bg-gray-500' : undefined}><a href="/history">History</a></li>
-            <li className={activeRoute === 'resources' ? 'bg-gray-500' : undefined}><a href="/resources">Toolkit</a></li>
-            <li className={activeRoute === 'faqs' ? 'bg-gray-500' : undefined}><a href="/faqs">FAQs</a></li>
+            <li className={activeRoute === 'dashboard' ? 'bg-gray-500' : undefined}><Link to={"/dashboard"}>Dashboard</Link></li>
+            <li className={activeRoute === 'leads' ? 'bg-gray-500' : undefined}><Link to={"/leads"}>Leads</Link></li>
+            <li className={activeRoute === 'active' ? 'bg-gray-500' : undefined}><Link to={"/active"}>Active Clients</Link></li>
+            <li className={activeRoute === 'history' ? 'bg-gray-500' : undefined}><Link to={"/history"}>History</Link></li>
+            <li className={activeRoute === 'resources' ? 'bg-gray-500' : undefined}><Link to={"/resources"}>Toolkit</Link></li>
+            <li className={activeRoute === 'faqs' ? 'bg-gray-500' : undefined}><Link to={"/faqs"}>FAQs</Link></li>
         </ul>
         <a href="/logout"><button className="btn btn-outline mt-8 mx-7 w-4/5">Log Out</button></a>
     </aside>

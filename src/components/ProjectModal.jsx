@@ -34,7 +34,8 @@ export default function ProjectModal({ handleCreateProject, handleEditProject, d
     return (
         <dialog id="my_modal_5" className="modal modal-bottom sm:modal-middle">
             <div className="modal-box text-center">
-                <h3 className="font-bold text-lg mb-5">Let's Get Started!</h3>
+                {isEditing ? <h3 className="font-bold text-lg mb-5">Edit Project Details</h3> :
+                             <h3 className="font-bold text-lg mb-5">Let's Get Started!</h3>}
                 <div className="flex flex-col gap-2 w-[60%] mx-auto">
                     <label className="input input-bordered flex items-center gap-2">
                         <Icon icon="ic:baseline-business" className='text-2xl'/>

@@ -1,6 +1,7 @@
 import { Icon } from "@iconify/react/dist/iconify.js"
 import { formatDate } from "../../utils/helpers";
 import { useAppwriteContext } from "./AppwriteContext";
+import { Link } from 'react-router-dom';
 
 export default function Card({ data }) {
     const { handleDeleteProject, handleEditModalOpen } = useAppwriteContext()
@@ -17,7 +18,7 @@ export default function Card({ data }) {
                     </ul>
                 </div>
                 </div>
-                <h2 className="card-title">{data['business-name']}</h2>
+                <Link to={`/project/${data.$id}`}><h2 className="card-title">{data['business-name']}</h2></Link>
                 <p>Business type: {data['business-type']}</p>
                 <p>Point of contact: {data['client-lead']}</p>
                 <p>Business address: {data['business-address']}</p>
