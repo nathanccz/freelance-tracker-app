@@ -2,7 +2,7 @@ import { Icon } from "@iconify/react/dist/iconify.js"
 import { useEffect, useState } from "react"
 import { filterDefaultFields } from "../../utils/helpers"
 
-export default function ProjectModal({ isEditing, handleCreateProject, handleEditProject, data, setIsEditing }) {
+export default function ProjectModal({ isEditing, handleCreateProject, handleEditProject, data, setIsEditing, setProjecttoEdit }) {
     const [formData, setFormData] = useState({})
 
     const formFields = {
@@ -84,7 +84,7 @@ export default function ProjectModal({ isEditing, handleCreateProject, handleEdi
                 <div className="flex gap-3 w-full justify-end items-center mt-5"> 
                     <div className="modal-action mt-0">
                         <form method="dialog">
-                            <button className="btn" onClick={() => setIsEditing(false)}>Cancel</button>
+                            <button className="btn" onClick={() => {setIsEditing(false); setProjecttoEdit([])}}>Cancel</button>
                         </form>
                     </div>
                     <div className="modal-action mt-0">
