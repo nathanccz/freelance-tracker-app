@@ -1,16 +1,18 @@
 import { useEffect, useState } from "react";
 import { Link } from 'react-router-dom';
-// import { useAppwriteContext } from "./AppwriteContext";
+import { useAppwriteContext } from "./AppwriteContext";
 
 export default function Sidebar({ activeRoute }) {
-    // const [leads, setLeads] = useState(null)
-    // const { projects } = useAppwriteContext()
+    const [totalLeads, setTotalLeads] = useState(null)
+    const [totalActive, setTotalActive] = useState(null)
+    const { projects } = useAppwriteContext()
 
-    // useEffect(() => {
-    //     if (projects.length === 0) return
+    useEffect(() => {
+        if (projects.length === 0) return
 
-    //     setLeads(projects.length)
-    // })
+        setTotalLeads(projects.filter(project => project['is-active'] === false).length)
+        setTotalActive(projects.filter(project => project['is-active'] === true).length)
+    }, [projects])
 
     return (
         <aside className="flex w-80 flex-col">
@@ -27,8 +29,26 @@ export default function Sidebar({ activeRoute }) {
         </div>
         <ul className="menu bg-base-200 rounded-box w-full gap-3 text-lg font-bold">
             <li className={activeRoute === 'dashboard' ? 'bg-gray-500' : undefined}><Link to={"/dashboard"}>Dashboard</Link></li>
-            <li className={activeRoute === 'leads' ? 'bg-gray-500' : undefined}><Link to={"/leads"}>Leads</Link></li>
-            <li className={activeRoute === 'active' ? 'bg-gray-500' : undefined}><Link to={"/active"}>Active Clients</Link></li>
+            <li className={activeRoute === 'leads' ? 'bg-gray-500' : undefined}>
+                <Link to={"/leads"} className="flex justify-between">
+                    <div>
+                        Leads
+                    </div>
+                    <div className="bg-gray-200 px-2 rounded-full"> 
+                        {totalLeads}
+                    </div>
+                </Link>
+            </li>
+            <li className={activeRoute === 'active' ? 'bg-gray-500' : undefined}>
+                <Link to={"/active"} className="flex justify-between">
+                    <div>
+                        Active
+                    </div>
+                    <div className="bg-gray-200 px-2 rounded-full"> 
+                        {totalActive}
+                    </div>
+                </Link>
+            </li>
             <li className={activeRoute === 'history' ? 'bg-gray-500' : undefined}><Link to={"/history"}>History</Link></li>
             <li className={activeRoute === 'resources' ? 'bg-gray-500' : undefined}><Link to={"/resources"}>Toolkit</Link></li>
             <li className={activeRoute === 'faqs' ? 'bg-gray-500' : undefined}><Link to={"/faqs"}>FAQs</Link></li>
