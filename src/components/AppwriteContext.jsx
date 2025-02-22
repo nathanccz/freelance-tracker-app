@@ -10,6 +10,7 @@ export default function AppwriteContextProvider({ children }) {
     const [toastActive, setToastActive] = useState(false)
     const [message, setMessage] = useState('')
     const [projectToEdit, setProjecttoEdit] = useState(null)
+    const [isEditing, setIsEditing] = useState(false)
     const [APPWRITE_URL, PROJECT_ID, DATABASE_ID, COLLECTION_ID] = [
         import.meta.env.VITE_APPWRITE_ENDPOINT,
         import.meta.env.VITE_APPWRITE_PROJECT_ID,
@@ -73,7 +74,13 @@ export default function AppwriteContextProvider({ children }) {
         } 
     }
 
+    const handleCreateModalOpen = () => {
+        setIsEditing(false)
+        document.getElementById('my_modal_5').showModal()
+    }
+
     const handleEditModalOpen = (id) => {
+        setIsEditing(true)
         setProjecttoEdit(projects.filter(project => project.$id === id)[0])
         document.getElementById('my_modal_5').showModal()
     }
@@ -107,12 +114,14 @@ export default function AppwriteContextProvider({ children }) {
                 handleCreateProject,
                 handleDeleteProject,
                 handleEditModalOpen,
+                handleCreateModalOpen,
+                setIsEditing,
                 projects,
             }}
         >
             {children}
             {toastActive && <Toast text={message} />}
-            <ProjectModal handleCreateProject={handleCreateProject} handleEditProject={handleEditProject} data={projectToEdit}/>
+            <ProjectModal handleCreateProject={handleCreateProject} handleEditProject={handleEditProject} data={projectToEdit} setProjecttoEdit={setProjecttoEdit} isEditing={isEditing} setIsEditing={setIsEditing}/>
         </AppwriteContext.Provider>
     )
 }

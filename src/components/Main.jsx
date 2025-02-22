@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 export default function Main({ setActiveRoute }) {
     const [totalLeads, setTotalLeads] = useState(null)
     const [totalActive, setTotalActive] = useState(null)
-    const { handleCreateProject, toastActive, projects } = useAppwriteContext()
+    const { handleCreateModalOpen, toastActive, projects } = useAppwriteContext()
 
     useEffect(() => {
         setActiveRoute('dashboard')
@@ -18,7 +18,7 @@ export default function Main({ setActiveRoute }) {
     return (
         <main className='p-10 w-full'>
             <h1 className="text-3xl font-bold mb-4">Dashboard</h1>
-            <button className="btn btn-primary mb-3" onClick={() => document.getElementById('my_modal_5').showModal()}>Create New Project</button>
+            <button className="btn btn-primary mb-3" onClick={handleCreateModalOpen}>Create New Project</button>
             <div className="flex flex-col gap-6 lg:flex-row">
                 <div className="card bg-base-100 w-full shadow-xl cursor-pointer">
                     <Link to={"/leads"}>

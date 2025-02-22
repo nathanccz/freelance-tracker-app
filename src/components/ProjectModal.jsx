@@ -2,9 +2,10 @@ import { Icon } from "@iconify/react/dist/iconify.js"
 import { useEffect, useState } from "react"
 import { filterDefaultFields } from "../../utils/helpers"
 
-export default function ProjectModal({ handleCreateProject, handleEditProject, data }) {
-    const [isEditing, setIsEditing] = useState(false)
-    const [formData, setFormData] = useState({
+export default function ProjectModal({ isEditing, handleCreateProject, handleEditProject, data, setIsEditing }) {
+    const [formData, setFormData] = useState({})
+
+    const formFields = {
         ['business-name']: '',
         ['business-type']: '',
         ['client-lead']: '',
@@ -13,15 +14,17 @@ export default function ProjectModal({ handleCreateProject, handleEditProject, d
         ['phone']: '',
         ['is-active']: '',
         ['created-at']: new Date(),
-    })
+    }
 
     useEffect(() => {
-        if (data) {
-            setIsEditing(true)
+        if (isEditing) {
             setFormData(filterDefaultFields(data))
-            console.log(formData)
-        }
-    }, [data])
+            console.log('is editing', formData)
+        } else {
+            setFormData(formFields)
+            console.log('not editing', formData)
+        } 
+    }, [data, isEditing])
     
     const handleInputChange = event => {
         const { name, value } = event.target;
@@ -81,13 +84,14 @@ export default function ProjectModal({ handleCreateProject, handleEditProject, d
                 <div className="flex gap-3 w-full justify-end items-center mt-5"> 
                     <div className="modal-action mt-0">
                         <form method="dialog">
-                            <button className="btn">Cancel</button>
+                            <button className="btn" onClick={() => setIsEditing(false)}>Cancel</button>
                         </form>
                     </div>
                     <div className="modal-action mt-0">
                         <form method="dialog">
-                            {isEditing ? <button className="btn btn-accent" onClick={() => handleEditProject(formData)}>Save</button> :
-                                         <button className="btn btn-accent" onClick={() => handleCreateProject(formData)}>Create</button>}
+                            {isEditing ? 
+                            <button className="btn btn-accent" onClick={() => handleEditProject(formData)}>Save</button> :
+                            <button className="btn btn-accent" onClick={() => handleCreateProject(formData)}>Create</button>}
                         </form>
                     </div>
                 </div>
