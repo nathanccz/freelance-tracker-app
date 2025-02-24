@@ -39,7 +39,7 @@ export default function ProjectHome({ setActiveRoute }) {
                         <div className="card bg-base-100 w-full shadow-xl cursor-pointer relative">
                             <div className="card-body text-center">
                                 <h2 className="card-title mx-auto text-xl"><Icon icon="fa-solid:business-time" className='text-2xl'/> Progress Made</h2>
-                                <p className="text-4xl font-bold">30%</p>
+                                <p className="text-4xl font-bold">{project['is-active'] === false ? 'Project inactive' : '30%'}</p>
                             </div>
                         </div>
                         <div className="card bg-base-100 w-full shadow-xl cursor-pointer relative">

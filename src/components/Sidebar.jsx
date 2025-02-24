@@ -29,16 +29,6 @@ export default function Sidebar({ activeRoute }) {
         </div>
         <ul className="menu bg-base-200 rounded-box w-full gap-3 text-lg font-bold">
             <li className={activeRoute === 'dashboard' ? 'bg-gray-500' : undefined}><Link to={"/dashboard"}>Dashboard</Link></li>
-            <li className={activeRoute === 'leads' ? 'bg-gray-500' : undefined}>
-                <Link to={"/leads"} className="flex justify-between">
-                    <div>
-                        Leads
-                    </div>
-                    <div className="bg-gray-200 px-2 rounded-full"> 
-                        {totalLeads}
-                    </div>
-                </Link>
-            </li>
             <li className={activeRoute === 'active' ? 'bg-gray-500' : undefined}>
                 <Link to={"/active"} className="flex justify-between">
                     <div>
@@ -46,6 +36,16 @@ export default function Sidebar({ activeRoute }) {
                     </div>
                     <div className="bg-gray-200 px-2 rounded-full"> 
                         {totalActive}
+                    </div>
+                </Link>
+            </li>
+            <li className={activeRoute === 'leads' ? 'bg-gray-500' : undefined}>
+                <Link to={"/leads"} className="flex justify-between">
+                    <div>
+                        Leads
+                    </div>
+                    <div className="bg-gray-200 px-2 rounded-full"> 
+                        {totalLeads}
                     </div>
                 </Link>
             </li>
