@@ -46,7 +46,9 @@ export default function AppwriteContextProvider({ children }) {
                 ID.unique(),
                 {
                     ...data,
-                    ['is-active']: data['is-active'] === 'true'
+                    ['is-active']: data['is-active'] === 'true',
+                    ['contract-amount']: Number(data['contract-amount']),
+                    ['amount-paid']: Number(data['amount-paid'])
                 }
             )
             setMessage('New project has been added!')
@@ -76,6 +78,7 @@ export default function AppwriteContextProvider({ children }) {
 
     const handleCreateModalOpen = () => {
         setIsEditing(false)
+        setProjecttoEdit([])
         document.getElementById('my_modal_5').showModal()
     }
 
@@ -87,10 +90,18 @@ export default function AppwriteContextProvider({ children }) {
 
     const handleEditProject = async (data) => {
         console.log(data)
-        const document = typeof data['is-active'] === 'boolean' ? data : {
+        const document = typeof data['is-active'] === 'boolean' ? 
+        {
             ...data,
-            ['is-active']: data['is-active'] === 'true'
+            ['contract-amount']: Number(data['contract-amount']),
+            ['amount-paid']: Number(data['amount-paid'])
+        } : {
+            ...data,
+            ['is-active']: data['is-active'] === 'true',
+            ['contract-amount']: Number(data['contract-amount']),
+            ['amount-paid']: Number(data['amount-paid'])
         } 
+        console.log(document)
         try {
             const result = await databases.updateDocument(
                 DATABASE_ID,
@@ -121,7 +132,15 @@ export default function AppwriteContextProvider({ children }) {
         >
             {children}
             {toastActive && <Toast text={message} />}
-            <ProjectModal handleCreateProject={handleCreateProject} handleEditProject={handleEditProject} data={projectToEdit} setProjecttoEdit={setProjecttoEdit} isEditing={isEditing} setIsEditing={setIsEditing}/>
+            <ProjectModal 
+                handleCreateProject={handleCreateProject} 
+                handleEditProject={handleEditProject} 
+                data={projectToEdit} 
+                setProjecttoEdit={setProjecttoEdit} 
+                isEditing={isEditing} 
+                setIsEditing={setIsEditing}
+                toastActive={toastActive}
+            />
         </AppwriteContext.Provider>
     )
 }

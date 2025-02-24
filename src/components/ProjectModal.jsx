@@ -2,7 +2,7 @@ import { Icon } from "@iconify/react/dist/iconify.js"
 import { useEffect, useState } from "react"
 import { filterDefaultFields } from "../../utils/helpers"
 
-export default function ProjectModal({ isEditing, handleCreateProject, handleEditProject, data, setIsEditing, setProjecttoEdit }) {
+export default function ProjectModal({ isEditing, handleCreateProject, handleEditProject, data, setIsEditing, setProjecttoEdit, toastActive }) {
     const [formData, setFormData] = useState({})
 
     const formFields = {
@@ -13,18 +13,19 @@ export default function ProjectModal({ isEditing, handleCreateProject, handleEdi
         ['email']: '',
         ['phone']: '',
         ['is-active']: '',
+        ['contract-amount']: 0,
+        ['amount-paid']: 0,
         ['created-at']: new Date(),
     }
 
     useEffect(() => {
         if (isEditing) {
             setFormData(filterDefaultFields(data))
-            console.log('is editing', formData)
         } else {
             setFormData(formFields)
-            console.log('not editing', formData)
+            console.log(formData)
         } 
-    }, [data, isEditing])
+    }, [data, isEditing, toastActive])
     
     const handleInputChange = event => {
         const { name, value } = event.target;
@@ -42,7 +43,7 @@ export default function ProjectModal({ isEditing, handleCreateProject, handleEdi
                 <div className="flex flex-col gap-2 w-[60%] mx-auto">
                     <label className="input input-bordered flex items-center gap-2">
                         <Icon icon="ic:baseline-business" className='text-2xl'/>
-                        <input type="text" className="grow" placeholder="Business name" name="business-name" onChange={handleInputChange} defaultValue={formData['business-name']}/>
+                        <input type="text" className="grow" placeholder="Business name" name="business-name" onChange={handleInputChange} value={formData['business-name']}/>
                     </label>
                     <select className="select w-full max-w-xs" name="business-type" onChange={handleInputChange}>
                         <option selected disabled>Type of business</option>
@@ -51,7 +52,7 @@ export default function ProjectModal({ isEditing, handleCreateProject, handleEdi
                         <option value="manufacturing">Manufacturing </option>
                         <option value="hospitality">Hospitality & Tourism</option>
                         <option value="healthcare">Healthcare & Wellness</option>
-                        <option value="technology">Technology & Software</option>
+                        <option value="restaurant">Restaurant Industry</option>
                         <option value="real estate">Real Estate</option>
                         <option value="finance">Finance & Banking</option>
                         <option value="education">Education & Training</option>
@@ -61,21 +62,29 @@ export default function ProjectModal({ isEditing, handleCreateProject, handleEdi
                     </select>
                     <label className="input input-bordered flex items-center gap-2">
                         <Icon icon="tdesign:user-business-filled" className='text-2xl'/>
-                        <input type="text" className="grow" placeholder="Client lead" name="client-lead" onChange={handleInputChange} defaultValue={formData['client-lead']} />
+                        <input type="text" className="grow" placeholder="Client lead" name="client-lead" onChange={handleInputChange} value={formData['client-lead']} />
+                    </label>
+                    <label className="input input-bordered flex items-center gap-2">
+                        <Icon icon="bx:money" className='text-2xl'/>
+                        <input type="text" className="grow" placeholder="Contract amount" name="contract-amount" onChange={handleInputChange} value={formData['contract-amount']} />
+                    </label>
+                    <label className="input input-bordered flex items-center gap-2">
+                        <Icon icon="ri:user-received-fill" className='text-2xl'/>
+                        <input type="text" className="grow" placeholder="Amount paid" name="amount-paid" onChange={handleInputChange} value={formData['amount-paid']} />
                     </label>
                     <label className="input input-bordered flex items-center gap-2">
                         <Icon icon="mdi:address-marker-outline" className='text-2xl'/>
-                        <input type="text" className="grow" placeholder="Business address" name="business-address" onChange={handleInputChange} defaultValue={formData['business-address']}/>
+                        <input type="text" className="grow" placeholder="Business address" name="business-address" onChange={handleInputChange} value={formData['business-address']}/>
                     </label>
                     <label className="input input-bordered flex items-center gap-2">
                         <Icon icon="ic:outline-email" className='text-2xl'/>
-                        <input type="text" className="grow" placeholder="Email" name="email" onChange={handleInputChange} defaultValue={formData['email']}/>
+                        <input type="text" className="grow" placeholder="Email" name="email" onChange={handleInputChange} value={formData['email']}/>
                     </label>
                     <label className="input input-bordered flex items-center gap-2">
                         <Icon icon="line-md:phone" className='text-2xl'/>
-                        <input type="text" className="grow" placeholder="Phone" name="phone" onChange={handleInputChange} defaultValue={formData['phone']}/>
+                        <input type="text" className="grow" placeholder="Phone" name="phone" onChange={handleInputChange} value={formData['phone']}/>
                     </label>
-                    <select className="select select-bordered w-full max-w-xs" name="is-active" onChange={handleInputChange} defaultValue={formData['is-active']}>
+                    <select className="select select-bordered w-full max-w-xs" name="is-active" onChange={handleInputChange} value={formData['is-active']}>
                         <option disabled selected>Is this an active client?</option>
                         <option value={"false"}>No, this is a prospective client.</option>
                         <option value={"true"}>Yes, this is an active client.</option>
@@ -91,7 +100,7 @@ export default function ProjectModal({ isEditing, handleCreateProject, handleEdi
                         <form method="dialog">
                             {isEditing ? 
                             <button className="btn btn-accent" onClick={() => handleEditProject(formData)}>Save</button> :
-                            <button className="btn btn-accent" onClick={() => handleCreateProject(formData)}>Create</button>}
+                            <button className="btn btn-accent" onClick={() => {handleCreateProject(formData); setFormData(formFields)}}>Create</button>}
                         </form>
                     </div>
                 </div>

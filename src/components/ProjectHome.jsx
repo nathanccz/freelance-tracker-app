@@ -26,14 +26,14 @@ export default function ProjectHome({ setActiveRoute }) {
                             <div className="absolute top-3 right-3"><Icon icon="material-symbols:edit-outline" className='text-3xl'/></div>
                             <div className="card-body text-center">
                                 <h2 className="card-title mx-auto text-xl"><Icon icon="mdi:leads-outline" className='text-2xl'/>Contract Amount</h2>
-                                <p className="text-4xl font-bold">$4,000</p>
+                                <p className="text-4xl font-bold">${project['contract-amount']}</p>
                             </div>
                         </div>
                         <div className="card bg-base-100 w-full shadow-xl cursor-pointer relative">
                             <div className="absolute top-3 right-3"><Icon icon="material-symbols:edit-outline" className='text-3xl'/></div>
                             <div className="card-body text-center">
                                 <h2 className="card-title mx-auto text-xl"><Icon icon="mdi:leads-outline" className='text-2xl'/>Amount Paid</h2>
-                                <p className="text-4xl font-bold">$0</p>
+                                <p className="text-4xl font-bold">${project['amount-paid']}</p>
                             </div>
                         </div>
                         <div className="card bg-base-100 w-full shadow-xl cursor-pointer relative">
