@@ -13,8 +13,8 @@ export default function ProjectModal({ isEditing, handleCreateProject, handleEdi
         ['email']: '',
         ['phone']: '',
         ['is-active']: '',
-        ['contract-amount']: 0,
-        ['amount-paid']: 0,
+        ['contract-amount']: '',
+        ['amount-paid']: '',
         ['created-at']: new Date(),
     }
 
