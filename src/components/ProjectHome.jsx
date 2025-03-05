@@ -16,7 +16,7 @@ export default function ProjectHome({ setActiveRoute }) {
 
     useEffect(() => {
         setActiveRoute('project')
-        setContractInput(project['contract-amount'])
+        setContractInput(project?.['contract-amount'])
     }, [])
 
     const handleClickSaveContractAmount = () => {
@@ -42,7 +42,7 @@ export default function ProjectHome({ setActiveRoute }) {
                                 <div className="w-full flex flex-col gap-2"> 
                                     <input type="text" placeholder="Enter new contract amount" className="input w-full" onChange={(e) => setContractInput(e.target.value)} value={contractInput}/> 
                                     <div className="w-full flex justify-end gap-3">
-                                        <button className="btn btn-secondary" onClick={() => {setIsEditing(false); setContractInput(project['contract-amount'])}}>Cancel</button>
+                                        <button className="btn btn-secondary" onClick={() => {setIsEditing(false); setContractInput(project?.['contract-amount'])}}>Cancel</button>
                                         <button className="btn btn-accent" onClick={handleClickSaveContractAmount}>Save</button>
                                     </div>
                                 </div> 
