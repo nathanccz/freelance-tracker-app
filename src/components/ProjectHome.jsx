@@ -16,7 +16,17 @@ export default function ProjectHome({ setActiveRoute }) {
 
     useEffect(() => {
         setActiveRoute('project')
+        setContractInput(project['contract-amount'])
     }, [])
+
+    const handleClickSaveContractAmount = () => {
+        if (isNaN(Number(contractInput))) {
+            alert('Please enter a number.')
+            return
+        }
+        handleEditContractAmount(id, contractInput)
+        setIsEditing(false)
+    }
 
     return (
         <main className='p-10 w-full'>
@@ -30,10 +40,10 @@ export default function ProjectHome({ setActiveRoute }) {
                                 <h2 className="card-title mx-auto text-xl"><Icon icon="mdi:leads-outline" className='text-2xl'/>Contract Amount</h2>
                                 {isEditing ? 
                                 <div className="w-full flex flex-col gap-2"> 
-                                    <input type="text" placeholder="Type here" className="input" onChange={(e) => setContractInput(e.target.value)} value={contractInput}/> 
+                                    <input type="text" placeholder="Enter new contract amount" className="input w-full" onChange={(e) => setContractInput(e.target.value)} value={contractInput}/> 
                                     <div className="w-full flex justify-end gap-3">
-                                        <button className="btn btn-secondary" onClick={() => setIsEditing(false)}>Cancel</button>
-                                        <button className="btn btn-accent" onClick={() => {handleEditContractAmount(id, contractInput); setIsEditing(false)}}>Save</button>
+                                        <button className="btn btn-secondary" onClick={() => {setIsEditing(false); setContractInput(project['contract-amount'])}}>Cancel</button>
+                                        <button className="btn btn-accent" onClick={handleClickSaveContractAmount}>Save</button>
                                     </div>
                                 </div> 
                                 : 
