@@ -20,7 +20,7 @@ export default function ProjectHome({ setActiveRoute }) {
 
     return (
         <main className='p-10 w-full'>
-            <h1 className="text-3xl font-bold mb-4">{project['business-name']}</h1>
+            <h1 className="text-3xl font-bold mb-4">{project?.['business-name']}</h1>
             <div className="flex flex-col xl:flex-row w-full gap-5">
                 <div className="basis-[75%]">
                     <div className="grid grid-cols-2 gap-3 mb-4">
@@ -37,27 +37,27 @@ export default function ProjectHome({ setActiveRoute }) {
                                     </div>
                                 </div> 
                                 : 
-                                <p className="text-4xl font-bold">${project['contract-amount']}</p>}
+                                <p className="text-4xl font-bold">${project?.['contract-amount']}</p>}
                             </div>
                         </div>
                         <div className="card bg-base-100 w-full shadow-xl cursor-pointer relative">
                             <div className="absolute top-3 right-3"><Icon icon="material-symbols:edit-outline" className='text-3xl'/></div>
                             <div className="card-body text-center">
                                 <h2 className="card-title mx-auto text-xl"><Icon icon="mdi:leads-outline" className='text-2xl'/>Amount Paid</h2>
-                                <p className="text-4xl font-bold">${project['amount-paid']}</p>
+                                <p className="text-4xl font-bold">${project?.['amount-paid']}</p>
                             </div>
                         </div>
                         <div className="card bg-base-100 w-full shadow-xl cursor-pointer relative">
                             <div className="card-body text-center">
                                 <h2 className="card-title mx-auto text-xl"><Icon icon="fa-solid:business-time" className='text-2xl'/> Progress Made</h2>
-                                <p className="text-4xl font-bold">{project['is-active'] === false ? 'Project inactive' : '30%'}</p>
+                                <p className="text-4xl font-bold">{project?.['is-active'] === false ? 'Project inactive' : '30%'}</p>
                             </div>
                         </div>
                         <div className="card bg-base-100 w-full shadow-xl cursor-pointer relative">
                             <div className="absolute top-3 right-3"><Icon icon="material-symbols:edit-outline" className='text-3xl'/></div>
                             <div className="card-body text-center">
                                 <h2 className="card-title mx-auto text-xl"><Icon icon="bx:money" className='text-2xl'/> Contacts</h2>
-                                <p className="text-2xl font-bold">{project['client-lead']}</p>
+                                <p className="text-2xl font-bold">{project?.['client-lead']}</p>
                             </div>
                         </div>
                     </div>
