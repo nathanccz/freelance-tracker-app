@@ -101,7 +101,6 @@ export default function AppwriteContextProvider({ children }) {
             ['contract-amount']: Number(data['contract-amount']),
             ['amount-paid']: Number(data['amount-paid'])
         } 
-        console.log(document)
         try {
             const result = await databases.updateDocument(
                 DATABASE_ID,
@@ -119,6 +118,23 @@ export default function AppwriteContextProvider({ children }) {
         }
     }
 
+    const handleEditContractAmount = async (id, amount) => {
+        try {
+            const response = await databases.updateDocument(
+                DATABASE_ID,
+                COLLECTION_ID, 
+                id,
+                {['contract-amount']: Number(amount)}
+            );
+            setMessage('Contract amount was updated!')
+            setToastActive(true)
+            await new Promise(resolve => setTimeout(resolve, 3000))
+            setToastActive(false)
+        } catch(error) {
+            console.log(error)
+        }
+    }
+
     return (
         <AppwriteContext.Provider
             value={{
@@ -126,6 +142,7 @@ export default function AppwriteContextProvider({ children }) {
                 handleDeleteProject,
                 handleEditModalOpen,
                 handleCreateModalOpen,
+                handleEditContractAmount,
                 setIsEditing,
                 projects,
             }}

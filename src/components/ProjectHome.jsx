@@ -8,7 +8,9 @@ import { useParams } from 'react-router-dom';
 
 export default function ProjectHome({ setActiveRoute }) {
     const { id } = useParams();
-    const { projects } = useAppwriteContext()
+    const { projects, handleEditContractAmount } = useAppwriteContext()
+    const [ isEditing, setIsEditing ] = useState(false)
+    const [ contractInput, setContractInput] = useState('')
     
     const project = projects.find((project) => project.$id === id);
 
@@ -23,10 +25,19 @@ export default function ProjectHome({ setActiveRoute }) {
                 <div className="basis-[75%]">
                     <div className="grid grid-cols-2 gap-3 mb-4">
                         <div className="card bg-base-100 w-full shadow-xl cursor-pointer relative">
-                            <div className="absolute top-3 right-3"><Icon icon="material-symbols:edit-outline" className='text-3xl'/></div>
+                            <div className="absolute top-3 right-3"><Icon icon="material-symbols:edit-outline" className='text-3xl' onClick={() => setIsEditing(true)}/></div>
                             <div className="card-body text-center">
                                 <h2 className="card-title mx-auto text-xl"><Icon icon="mdi:leads-outline" className='text-2xl'/>Contract Amount</h2>
-                                <p className="text-4xl font-bold">${project['contract-amount']}</p>
+                                {isEditing ? 
+                                <div className="w-full flex flex-col gap-2"> 
+                                    <input type="text" placeholder="Type here" className="input" onChange={(e) => setContractInput(e.target.value)} value={contractInput}/> 
+                                    <div className="w-full flex justify-end gap-3">
+                                        <button className="btn btn-secondary" onClick={() => setIsEditing(false)}>Cancel</button>
+                                        <button className="btn btn-accent" onClick={() => {handleEditContractAmount(id, contractInput); setIsEditing(false)}}>Save</button>
+                                    </div>
+                                </div> 
+                                : 
+                                <p className="text-4xl font-bold">${project['contract-amount']}</p>}
                             </div>
                         </div>
                         <div className="card bg-base-100 w-full shadow-xl cursor-pointer relative">
