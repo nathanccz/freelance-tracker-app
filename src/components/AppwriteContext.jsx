@@ -135,6 +135,23 @@ export default function AppwriteContextProvider({ children }) {
         }
     }
 
+    const handleEditAmountPaid = async (id, amount) => {
+        try {
+            const response = await databases.updateDocument(
+                DATABASE_ID,
+                COLLECTION_ID, 
+                id,
+                {['amount-paid']: Number(amount)}
+            );
+            setMessage('Amount paid was updated!')
+            setToastActive(true)
+            await new Promise(resolve => setTimeout(resolve, 3000))
+            setToastActive(false)
+        } catch(error) {
+            console.log(error)
+        }
+    }
+
     return (
         <AppwriteContext.Provider
             value={{
@@ -143,6 +160,7 @@ export default function AppwriteContextProvider({ children }) {
                 handleEditModalOpen,
                 handleCreateModalOpen,
                 handleEditContractAmount,
+                handleEditAmountPaid,
                 setIsEditing,
                 projects,
             }}
