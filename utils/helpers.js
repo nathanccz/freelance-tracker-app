@@ -20,3 +20,18 @@ export function filterDefaultFields(document) {
       return acc;
   }, {});
 }
+
+export function isValidEmail(email) {
+  if (typeof email !== "string") return false
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+  return emailRegex.test(email.trim())
+}
+
+export function isEmpty(obj) {
+  for (let field in obj) {
+      if (obj[field].length > 0) {
+          return false
+      }
+  }
+  return true
+}

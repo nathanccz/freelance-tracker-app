@@ -11,9 +11,21 @@ export default function Card({ data }) {
                 <div className="dropdown dropdown-left">
                     <div tabIndex={0} role="button" className="btn m-1"><Icon icon="uiw:more" className='text-xl'/></div>
                     <ul tabIndex={0} className="dropdown-content menu bg-slate-300 rounded-box z-[1] w-52 p-2 shadow font-bold">
-                        <li><a onClick={() => handleDeleteProject(data.$id)}>Delete</a></li>
-                        <li><a onClick={() => handleEditModalOpen(data.$id)}>Edit</a></li>
-                        <li><a>Add Note</a></li>
+                        <li>
+                            <a onClick={() => handleEditModalOpen(data.$id)}>
+                                <Icon icon="material-symbols:edit-outline-sharp" className='text-lg'/> Edit
+                            </a>
+                        </li>
+                        <li>
+                            <a>
+                                <Icon icon="proicons:note" className='text-lg'/> Add Note
+                            </a>
+                        </li>
+                        <li>
+                            <a onClick={() => handleDeleteProject(data.$id)}>
+                                <Icon icon="material-symbols:delete-outline" className='text-lg'/> Delete
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </div>
