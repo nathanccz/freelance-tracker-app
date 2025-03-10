@@ -7,15 +7,17 @@ export const AppwriteContext = createContext(null);
 
 export default function AppwriteContextProvider({ children }) {
   const [projects, setProjects] = useState([]);
+  const [contacts, setContacts] = useState([]);
   const [toastActive, setToastActive] = useState(false);
   const [message, setMessage] = useState("");
   const [projectToEdit, setProjecttoEdit] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
-  const [APPWRITE_URL, PROJECT_ID, DATABASE_ID, COLLECTION_ID] = [
+  const [APPWRITE_URL, PROJECT_ID, DATABASE_ID, COLLECTION_ID, CONTACTS_ID] = [
     import.meta.env.VITE_APPWRITE_ENDPOINT,
     import.meta.env.VITE_APPWRITE_PROJECT_ID,
     import.meta.env.VITE_APPWRITE_DATABASE_ID,
     import.meta.env.VITE_APPWRITE_COLLECTION_ID,
+    import.meta.env.VITE_APPWRITE_CONTACTS_COLLECTION_ID,
   ];
 
   const client = new Client().setEndpoint(APPWRITE_URL).setProject(PROJECT_ID);
@@ -31,6 +33,21 @@ export default function AppwriteContextProvider({ children }) {
         setProjects(response.documents);
       }
       fetchProjects();
+    } catch (error) {
+      console.log(error);
+    }
+  }, [toastActive]);
+
+  useEffect(() => {
+    try {
+      async function fetchContacts() {
+        const response = await databases.listDocuments(
+          DATABASE_ID,
+          CONTACTS_ID
+        );
+        setContacts(response.documents);
+      }
+      fetchContacts();
     } catch (error) {
       console.log(error);
     }
@@ -151,6 +168,24 @@ export default function AppwriteContextProvider({ children }) {
     }
   };
 
+  const handleAddNewContact = async (id, document) => {
+    console.log(id, document);
+    try {
+      const response = await databases.createDocument(
+        DATABASE_ID,
+        CONTACTS_ID,
+        ID.unique(),
+        { ...document, ["project-id"]: id }
+      );
+      setMessage("New contact has been added!");
+      setToastActive(true);
+      await new Promise((resolve) => setTimeout(resolve, 3000));
+      setToastActive(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <AppwriteContext.Provider
       value={{
@@ -160,8 +195,10 @@ export default function AppwriteContextProvider({ children }) {
         handleCreateModalOpen,
         handleEditContractAmount,
         handleEditAmountPaid,
+        handleAddNewContact,
         setIsEditing,
         projects,
+        contacts,
       }}
     >
       {children}

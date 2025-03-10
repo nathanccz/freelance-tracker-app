@@ -186,7 +186,7 @@ export default function ProjectHome({ setActiveRoute }) {
           <Timeline />
         </div>
       </div>
-      <ContactsModal data={project?.["client-lead"]} />
+      <ContactsModal data={project} />
     </main>
   );
 }
