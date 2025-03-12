@@ -70,6 +70,7 @@ export default function AppwriteContextProvider({ children }) {
       setToastActive(true);
       await new Promise((resolve) => setTimeout(resolve, 3000));
       setToastActive(false);
+      setMessage("");
     } catch (error) {
       console.log(error);
     }
@@ -86,6 +87,7 @@ export default function AppwriteContextProvider({ children }) {
       setToastActive(true);
       await new Promise((resolve) => setTimeout(resolve, 3000));
       setToastActive(false);
+      setMessage("");
     } catch (error) {
       console.log(error);
     }
@@ -129,6 +131,7 @@ export default function AppwriteContextProvider({ children }) {
       await new Promise((resolve) => setTimeout(resolve, 3000));
       setToastActive(false);
       setProjecttoEdit([]);
+      setMessage("");
     } catch (error) {
       console.log(error);
     }
@@ -146,6 +149,7 @@ export default function AppwriteContextProvider({ children }) {
       setToastActive(true);
       await new Promise((resolve) => setTimeout(resolve, 3000));
       setToastActive(false);
+      setMessage("");
     } catch (error) {
       console.log(error);
     }
@@ -163,13 +167,13 @@ export default function AppwriteContextProvider({ children }) {
       setToastActive(true);
       await new Promise((resolve) => setTimeout(resolve, 3000));
       setToastActive(false);
+      setMessage("");
     } catch (error) {
       console.log(error);
     }
   };
 
   const handleAddNewContact = async (id, document) => {
-    console.log(id, document);
     try {
       const response = await databases.createDocument(
         DATABASE_ID,
@@ -180,7 +184,26 @@ export default function AppwriteContextProvider({ children }) {
       setMessage("New contact has been added!");
       setToastActive(true);
       await new Promise((resolve) => setTimeout(resolve, 3000));
+      setMessage("");
       setToastActive(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleEditContact = async (contactId, document) => {
+    try {
+      const response = await databases.updateDocument(
+        DATABASE_ID,
+        CONTACTS_ID,
+        contactId,
+        document
+      );
+      setMessage("Contact was updated!");
+      setToastActive(true);
+      await new Promise((resolve) => setTimeout(resolve, 3000));
+      setToastActive(false);
+      setMessage("");
     } catch (error) {
       console.log(error);
     }
@@ -196,6 +219,7 @@ export default function AppwriteContextProvider({ children }) {
         handleEditContractAmount,
         handleEditAmountPaid,
         handleAddNewContact,
+        handleEditContact,
         setIsEditing,
         projects,
         contacts,

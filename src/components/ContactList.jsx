@@ -2,29 +2,44 @@ import { Icon } from "@iconify/react/dist/iconify.js";
 import { useEffect, useState } from "react";
 import { isValidEmail, isEmpty } from "../../utils/helpers";
 import { useAppwriteContext } from "./AppwriteContext";
+import { filterDefaultFields } from "../../utils/helpers";
+import Dropdown from "./Dropdown";
 
 export default function ContactList({
   data,
   isAddingNewContact,
   setIsAddingNewContact,
+  isEditingContact,
+  setIsEditingContact,
+  contactToEdit,
+  setContactToEdit,
 }) {
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState({});
+  const formFields = {
     name: "",
     role: "",
     email: "",
     phone: "",
-  });
+  };
   const [secondaryContacts, setSecondaryContacts] = useState([]);
-  const { handleAddNewContact, contacts } = useAppwriteContext();
+  const { handleAddNewContact, contacts, handleEditContact } =
+    useAppwriteContext();
 
   useEffect(() => {
-    console.log(contacts);
     const filtered = contacts.filter(
       (contact) => contact["project-id"] === data?.$id
     );
-    console.log(filtered);
+    console.log(data, filtered);
     setSecondaryContacts(filtered);
   }, [contacts]);
+
+  useEffect(() => {
+    if (isEditingContact) {
+      setFormData(filterDefaultFields(contactToEdit));
+    } else {
+      setFormData(formFields);
+    }
+  }, [contactToEdit]);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -35,7 +50,6 @@ export default function ContactList({
   };
 
   const handleClickSave = () => {
-    console.log(formData);
     if (isEmpty(formData)) {
       alert("Please fill out contact information.");
       return;
@@ -48,14 +62,19 @@ export default function ContactList({
       alert("Please enter a valid email");
       return;
     }
+    if (isAddingNewContact) {
+      handleAddNewContact(data?.$id, formData);
+    } else if (isEditingContact) {
+      handleEditContact(contactToEdit.$id, formData);
+    }
 
-    handleAddNewContact(data?.$id, formData);
     setIsAddingNewContact(false);
+    setIsEditingContact(false);
   };
 
   return (
     <ul className="list bg-base-100 rounded-box shadow-md">
-      {!isAddingNewContact ? (
+      {!isAddingNewContact && !isEditingContact ? (
         <>
           <li className="list-row">
             <Icon icon="dashicons:businessperson" className="text-5xl" />
@@ -71,6 +90,12 @@ export default function ContactList({
             <button className="btn btn-square btn-ghost">
               <Icon icon="tabler:phone" className="text-xl" />
             </button>
+            <Dropdown
+              isEditingContact={isEditingContact}
+              setIsEditingContact={setIsEditingContact}
+              setContactToEdit={setContactToEdit}
+              data={data}
+            />
           </li>
 
           {secondaryContacts.length > 0 &&
@@ -92,6 +117,12 @@ export default function ContactList({
                 <button className="btn btn-square btn-ghost">
                   <Icon icon="tabler:phone" className="text-xl" />
                 </button>
+                <Dropdown
+                  isEditingContact={isEditingContact}
+                  setIsEditingContact={setIsEditingContact}
+                  setContactToEdit={setContactToEdit}
+                  data={contact}
+                />
               </li>
             ))}
         </>
@@ -106,6 +137,7 @@ export default function ContactList({
               className="input input-ghost"
               autoComplete="off"
               onChange={handleInputChange}
+              value={formData?.name}
             />
             <input
               type="text"
@@ -114,6 +146,7 @@ export default function ContactList({
               className="input input-ghost"
               autoComplete="off"
               onChange={handleInputChange}
+              value={formData?.role}
             />
             <input
               type="text"
@@ -122,6 +155,7 @@ export default function ContactList({
               className="input input-ghost"
               autoComplete="off"
               onChange={handleInputChange}
+              value={formData?.email}
             />
             <input
               type="text"
@@ -130,6 +164,7 @@ export default function ContactList({
               className="input input-ghost"
               autoComplete="off"
               onChange={handleInputChange}
+              value={formData?.phone}
             />
           </div>
           <button
