@@ -64,7 +64,7 @@ export default function ProjectHome({ setActiveRoute }) {
               )}
               <div className="card-body text-center">
                 <h2 className="card-title mx-auto text-xl">
-                  <Icon icon="mdi:leads-outline" className="text-2xl" />
+                  <Icon icon="bx:money" className="text-2xl" />
                   Contract Amount
                 </h2>
                 {isEditingContractAmount ? (
@@ -113,7 +113,7 @@ export default function ProjectHome({ setActiveRoute }) {
               )}
               <div className="card-body text-center">
                 <h2 className="card-title mx-auto text-xl">
-                  <Icon icon="mdi:leads-outline" className="text-2xl" />
+                  <Icon icon="ri:user-received-fill" className="text-2xl" />
                   Amount Paid
                 </h2>
                 {isEditingAmountPaid ? (
@@ -153,7 +153,7 @@ export default function ProjectHome({ setActiveRoute }) {
             <div className="card bg-base-100 w-full shadow-xl relative">
               <div className="card-body text-center">
                 <h2 className="card-title mx-auto text-xl">
-                  <Icon icon="fa-solid:business-time" className="text-2xl" />{" "}
+                  <Icon icon="ri:progress-3-fill" className="text-2xl" />{" "}
                   Progress Made
                 </h2>
                 {project?.["is-active"] === false ? (
@@ -173,7 +173,8 @@ export default function ProjectHome({ setActiveRoute }) {
               </div>
               <div className="card-body text-center">
                 <h2 className="card-title mx-auto text-xl">
-                  <Icon icon="bx:money" className="text-2xl" /> Contacts
+                  <Icon icon="mingcute:contacts-2-line" className="text-2xl" />{" "}
+                  Contacts
                 </h2>
                 <p className="text-2xl font-bold">{project?.["client-lead"]}</p>
               </div>

@@ -50,6 +50,16 @@ export default function Card({ data }) {
           <p>Business address: {data["business-address"]}</p>
           <p>email: {data["email"]}</p>
           <p>phone: {data["phone"]}</p>
+          {data["is-active"] === true && (
+            <div
+              className="radial-progress bg-primary text-primary-content border-primary border-4"
+              style={{ "--value": 70 } /* as React.CSSProperties */}
+              aria-valuenow={70}
+              role="progressbar"
+            >
+              70%
+            </div>
+          )}
           <div className="text-right">
             <span className="italic">
               Created on {formatDate(data["created-at"])}

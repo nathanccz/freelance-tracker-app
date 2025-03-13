@@ -70,6 +70,8 @@ export default function ContactList({
 
     setIsAddingNewContact(false);
     setIsEditingContact(false);
+    setFormData({});
+    setContactToEdit([]);
   };
 
   return (

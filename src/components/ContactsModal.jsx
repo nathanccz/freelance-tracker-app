@@ -35,10 +35,13 @@ export default function ContactsModal({ data }) {
           </button>
         )}
         <div className="modal-action">
-          {isAddingNewContact && (
+          {(isAddingNewContact || isEditingContact) && (
             <button
               className="btn"
-              onClick={() => setIsAddingNewContact(false)}
+              onClick={() => {
+                setIsAddingNewContact(false);
+                setIsEditingContact(false);
+              }}
             >
               Go back
             </button>
