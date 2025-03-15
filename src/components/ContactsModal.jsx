@@ -26,10 +26,13 @@ export default function ContactsModal({ data }) {
           contactToEdit={contactToEdit}
           setContactToEdit={setContactToEdit}
         />
-        {!isAddingNewContact && (
+        {!isAddingNewContact && !isEditingContact && (
           <button
             className="btn btn-xs mt-3"
-            onClick={() => setIsAddingNewContact(true)}
+            onClick={() => {
+              setIsAddingNewContact(true);
+              setIsEditingContact(false);
+            }}
           >
             + Add new contact
           </button>
@@ -41,6 +44,7 @@ export default function ContactsModal({ data }) {
               onClick={() => {
                 setIsAddingNewContact(false);
                 setIsEditingContact(false);
+                setContactToEdit([]);
               }}
             >
               Go back
@@ -53,6 +57,7 @@ export default function ContactsModal({ data }) {
               onClick={() => {
                 setIsAddingNewContact(false);
                 setIsEditingContact(false);
+                setContactToEdit([]);
               }}
             >
               Close

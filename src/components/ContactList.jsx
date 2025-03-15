@@ -29,17 +29,20 @@ export default function ContactList({
     const filtered = contacts.filter(
       (contact) => contact["project-id"] === data?.$id
     );
-    console.log(data, filtered);
     setSecondaryContacts(filtered);
   }, [contacts]);
 
   useEffect(() => {
     if (isEditingContact) {
+      console.log("editing");
       setFormData(filterDefaultFields(contactToEdit));
-    } else {
+      console.log(contactToEdit);
+    } else if (isAddingNewContact) {
+      console.log("adding new contact");
       setFormData(formFields);
+      console.log(formData);
     }
-  }, [contactToEdit]);
+  }, [isEditingContact, isAddingNewContact]);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -139,7 +142,11 @@ export default function ContactList({
               className="input input-ghost"
               autoComplete="off"
               onChange={handleInputChange}
-              value={formData?.name}
+              value={
+                isEditingContact
+                  ? formData?.name || formData?.["client-lead"]
+                  : ""
+              }
             />
             <input
               type="text"

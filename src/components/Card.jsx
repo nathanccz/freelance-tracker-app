@@ -16,6 +16,14 @@ export default function Card({ data }) {
             tabIndex={0}
             className="dropdown-content menu bg-slate-300 rounded-box z-[1] w-52 p-2 shadow font-bold"
           >
+            {data["is-active"] === false && (
+              <li>
+                <a>
+                  <Icon icon="codicon:vm-active" className="text-lg" /> Set to
+                  active
+                </a>
+              </li>
+            )}
             <li>
               <a onClick={() => handleEditModalOpen(data.$id)}>
                 <Icon
