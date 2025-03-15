@@ -1,12 +1,31 @@
 import { useEffect, useState } from "react";
 import ContactList from "./ContactList";
 import { useAppwriteContext } from "./AppwriteContext";
+import { filterDefaultFields } from "../../utils/helpers";
+import { useParams } from "react-router-dom";
 
 export default function ContactsModal({ data }) {
   const [isAddingNewContact, setIsAddingNewContact] = useState(false);
   const [isEditingContact, setIsEditingContact] = useState(false);
   const [contactToEdit, setContactToEdit] = useState([]);
+  const [allContacts, setAllContacts] = useState({});
   const { contacts } = useAppwriteContext();
+  const { id } = useParams();
+  useEffect(() => {
+    const primaryContact = {
+      name: data?.["client-lead"],
+      role: "Main point of contact",
+      email: data?.email,
+      phone: data?.phone,
+      ["project-id"]: id,
+    };
+    setAllContacts({
+      primary: primaryContact,
+      secondary: contacts.filter(
+        (contact) => contact["project-id"] === id.toString()
+      ),
+    });
+  }, [data]);
   return (
     <dialog id="contacts_modal" className="modal">
       <div className="modal-box">
@@ -18,7 +37,8 @@ export default function ContactsModal({ data }) {
             : "Contacts"}
         </h3>
         <ContactList
-          data={data}
+          data={allContacts}
+          projectId={id}
           isAddingNewContact={isAddingNewContact}
           setIsAddingNewContact={setIsAddingNewContact}
           isEditingContact={isEditingContact}

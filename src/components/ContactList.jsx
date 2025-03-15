@@ -13,6 +13,7 @@ export default function ContactList({
   setIsEditingContact,
   contactToEdit,
   setContactToEdit,
+  projectId,
 }) {
   const [formData, setFormData] = useState({});
   const formFields = {
@@ -21,16 +22,7 @@ export default function ContactList({
     email: "",
     phone: "",
   };
-  const [secondaryContacts, setSecondaryContacts] = useState([]);
-  const { handleAddNewContact, contacts, handleEditContact } =
-    useAppwriteContext();
-
-  useEffect(() => {
-    const filtered = contacts.filter(
-      (contact) => contact["project-id"] === data?.$id
-    );
-    setSecondaryContacts(filtered);
-  }, [contacts]);
+  const { handleAddNewContact, handleEditContact } = useAppwriteContext();
 
   useEffect(() => {
     if (isEditingContact) {
@@ -66,7 +58,7 @@ export default function ContactList({
       return;
     }
     if (isAddingNewContact) {
-      handleAddNewContact(data?.$id, formData);
+      handleAddNewContact(projectId, formData);
     } else if (isEditingContact) {
       handleEditContact(contactToEdit.$id, formData);
     }
@@ -84,7 +76,7 @@ export default function ContactList({
           <li className="list-row">
             <Icon icon="dashicons:businessperson" className="text-5xl" />
             <div className="list-col-grow">
-              <div>{data?.["client-lead"]}</div>
+              <div>{data?.primary?.name}</div>
               <div className="text-xs font-semibold opacity-60">
                 Main point of contact
               </div>
@@ -99,12 +91,12 @@ export default function ContactList({
               isEditingContact={isEditingContact}
               setIsEditingContact={setIsEditingContact}
               setContactToEdit={setContactToEdit}
-              data={data}
+              data={data?.primary}
             />
           </li>
 
-          {secondaryContacts.length > 0 &&
-            secondaryContacts.map((contact) => (
+          {data?.secondary?.length > 0 &&
+            data.secondary.map((contact) => (
               <li key={contact.$id} className="list-row">
                 <Icon
                   icon="material-symbols:person-outline"
@@ -143,9 +135,7 @@ export default function ContactList({
               autoComplete="off"
               onChange={handleInputChange}
               value={
-                isEditingContact
-                  ? formData?.name || formData?.["client-lead"]
-                  : ""
+                isEditingContact ? formData?.name : formData?.["client-lead"]
               }
             />
             <input
@@ -155,7 +145,9 @@ export default function ContactList({
               className="input input-ghost"
               autoComplete="off"
               onChange={handleInputChange}
-              value={formData?.role}
+              value={
+                isAddingNewContact ? formData?.["client-lead"] : formData?.role
+              }
             />
             <input
               type="text"

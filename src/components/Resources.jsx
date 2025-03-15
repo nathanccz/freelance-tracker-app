@@ -23,7 +23,7 @@ export default function Resources({ setActiveRoute }) {
 
             <li className="list-row">
               <div>
-                <Icon icon="ri:presentation-fill" className="text-5xl" />
+                <Icon icon="ri:presentation-fill" className="text-4xl" />
               </div>
               <div>
                 <div className="font-bold">Proposal Template</div>
@@ -46,7 +46,7 @@ export default function Resources({ setActiveRoute }) {
 
             <li className="list-row">
               <div>
-                <Icon icon="clarity:contract-solid" className="text-5xl" />
+                <Icon icon="clarity:contract-solid" className="text-4xl" />
               </div>
               <div>
                 <div className="font-bold">California Contract Killer</div>
@@ -78,7 +78,7 @@ export default function Resources({ setActiveRoute }) {
               <div>
                 <Icon
                   icon="tdesign:questionnaire-double"
-                  className="text-5xl"
+                  className="text-4xl"
                 />
               </div>
               <div>
@@ -102,7 +102,7 @@ export default function Resources({ setActiveRoute }) {
 
             <li className="list-row">
               <div>
-                <Icon icon="fluent-mdl2:calendar-agenda" className="text-5xl" />
+                <Icon icon="fluent-mdl2:calendar-agenda" className="text-4xl" />
               </div>
               <div>
                 <div className="font-bold">Meeting Agenda Template</div>
@@ -132,7 +132,7 @@ export default function Resources({ setActiveRoute }) {
 
             <li className="list-row">
               <div>
-                <Icon icon="hugeicons:invoice" className="text-5xl" />
+                <Icon icon="hugeicons:invoice" className="text-4xl" />
               </div>
               <div>
                 <div className="font-bold">Invoice Template</div>
@@ -155,7 +155,7 @@ export default function Resources({ setActiveRoute }) {
 
             <li className="list-row">
               <div>
-                <Icon icon="carbon:reminder" className="text-5xl" />
+                <Icon icon="carbon:reminder" className="text-4xl" />
               </div>
               <div>
                 <div className="font-bold">Payment Reminder Template</div>
