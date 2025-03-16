@@ -1,7 +1,5 @@
 import { useState, useEffect } from "react";
 import { useAppwriteContext } from "./AppwriteContext";
-import { Icon } from "@iconify/react/dist/iconify.js";
-import { Link } from "react-router-dom";
 import Stats from "./Stats";
 
 export default function Main({ setActiveRoute }) {

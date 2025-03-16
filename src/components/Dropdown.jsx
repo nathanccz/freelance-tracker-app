@@ -4,12 +4,18 @@ export default function Dropdown({
   isEditingContact,
   setIsEditingContact,
   setContactToEdit,
+  setContactToDelete,
   data,
 }) {
   const handleClickEditContact = () => {
     console.log(data);
     setIsEditingContact(true);
     setContactToEdit(data);
+  };
+  const handleClickDeleteContact = () => {
+    console.log(data);
+    setContactToDelete(data.$id);
+    document.getElementById("my_modal_del_contact").showModal();
   };
 
   return (
@@ -31,7 +37,7 @@ export default function Dropdown({
           </a>
         </li>
         <li>
-          <a onClick={() => handleDeleteProject(data.$id)}>
+          <a onClick={handleClickDeleteContact}>
             <Icon icon="material-symbols:delete-outline" className="text-lg" />{" "}
             Delete Contact
           </a>

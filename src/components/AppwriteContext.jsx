@@ -3,6 +3,7 @@ import { Client, Databases, ID, Query } from "appwrite";
 import Toast from "./Toast";
 import ProjectModal from "./ProjectModal";
 import DeleteModal from "./DeleteModal";
+import DeleteContactModal from "./DeleteContactModal";
 
 export const AppwriteContext = createContext(null);
 
@@ -13,6 +14,7 @@ export default function AppwriteContextProvider({ children }) {
   const [message, setMessage] = useState("");
   const [projectToEdit, setProjecttoEdit] = useState(null);
   const [projectToDelete, setProjectToDelete] = useState(null);
+  const [contactToDelete, setContactToDelete] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
   const [APPWRITE_URL, PROJECT_ID, DATABASE_ID, COLLECTION_ID, CONTACTS_ID] = [
     import.meta.env.VITE_APPWRITE_ENDPOINT,
@@ -202,6 +204,24 @@ export default function AppwriteContextProvider({ children }) {
     }
   };
 
+  const handleDeleteContact = async () => {
+    try {
+      const response = await databases.deleteDocument(
+        DATABASE_ID,
+        CONTACTS_ID,
+        contactToDelete
+      );
+      setMessage("Contact was deleted!");
+      setToastActive(true);
+      await new Promise((resolve) => setTimeout(resolve, 3000));
+      setToastActive(false);
+      setMessage("");
+      setContactToDelete(null);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <AppwriteContext.Provider
       value={{
@@ -214,6 +234,9 @@ export default function AppwriteContextProvider({ children }) {
         handleAddNewContact,
         handleEditContact,
         setIsEditing,
+        contactToDelete,
+        setContactToDelete,
+        handleDeleteContact,
         projects,
         contacts,
       }}
@@ -233,6 +256,7 @@ export default function AppwriteContextProvider({ children }) {
         projectToDelete={projectToDelete}
         handleDeleteProject={handleDeleteProject}
       />
+      <DeleteContactModal handleDeleteContact={handleDeleteContact} />
     </AppwriteContext.Provider>
   );
 }

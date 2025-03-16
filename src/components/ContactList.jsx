@@ -22,7 +22,8 @@ export default function ContactList({
     email: "",
     phone: "",
   };
-  const { handleAddNewContact, handleEditContact } = useAppwriteContext();
+  const { handleAddNewContact, handleEditContact, setContactToDelete } =
+    useAppwriteContext();
 
   useEffect(() => {
     if (isEditingContact) {
@@ -114,6 +115,7 @@ export default function ContactList({
                   isEditingContact={isEditingContact}
                   setIsEditingContact={setIsEditingContact}
                   setContactToEdit={setContactToEdit}
+                  setContactToDelete={setContactToDelete}
                   data={contact}
                 />
               </li>
