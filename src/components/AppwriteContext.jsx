@@ -26,33 +26,19 @@ export default function AppwriteContextProvider({ children }) {
   const databases = new Databases(client);
 
   useEffect(() => {
-    try {
-      async function fetchProjects() {
-        const response = await databases.listDocuments(
-          DATABASE_ID,
-          COLLECTION_ID
-        );
-        setProjects(response.documents);
+    async function fetchData() {
+      try {
+        const [projectsData, contactsData] = await Promise.all([
+          databases.listDocuments(DATABASE_ID, COLLECTION_ID),
+          databases.listDocuments(DATABASE_ID, CONTACTS_ID),
+        ]);
+        setProjects(projectsData.documents);
+        setContacts(contactsData.documents);
+      } catch (error) {
+        console.log(error);
       }
-      fetchProjects();
-    } catch (error) {
-      console.log(error);
     }
-  }, [toastActive]);
-
-  useEffect(() => {
-    try {
-      async function fetchContacts() {
-        const response = await databases.listDocuments(
-          DATABASE_ID,
-          CONTACTS_ID
-        );
-        setContacts(response.documents);
-      }
-      fetchContacts();
-    } catch (error) {
-      console.log(error);
-    }
+    fetchData();
   }, [toastActive]);
 
   const handleCreateProject = async (data) => {
