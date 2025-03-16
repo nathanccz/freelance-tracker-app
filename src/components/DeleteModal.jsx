@@ -1,4 +1,4 @@
-export default function DeleteModal({ handleDeleteProject }) {
+export default function DeleteModal({ projectToDelete, handleDeleteProject }) {
   return (
     <dialog id="my_modal_del" className="modal">
       <div className="modal-box border">
@@ -8,9 +8,9 @@ export default function DeleteModal({ handleDeleteProject }) {
           <form method="dialog">
             <button
               className="btn btn-error text-white mr-3"
-              onClick={handleDeleteReview}
+              onClick={() => handleDeleteProject(projectToDelete)}
             >
-              Delete Review
+              Delete Project
             </button>
             <button className="btn">Cancel</button>
           </form>

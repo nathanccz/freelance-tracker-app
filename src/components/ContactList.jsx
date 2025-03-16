@@ -26,13 +26,9 @@ export default function ContactList({
 
   useEffect(() => {
     if (isEditingContact) {
-      console.log("editing");
       setFormData(filterDefaultFields(contactToEdit));
-      console.log(contactToEdit);
     } else if (isAddingNewContact) {
-      console.log("adding new contact");
       setFormData(formFields);
-      console.log(formData);
     }
   }, [isEditingContact, isAddingNewContact]);
 

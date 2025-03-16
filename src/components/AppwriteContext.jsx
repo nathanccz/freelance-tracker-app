@@ -2,6 +2,7 @@ import { createContext, useContext, useEffect, useState, useMemo } from "react";
 import { Client, Databases, ID, Query } from "appwrite";
 import Toast from "./Toast";
 import ProjectModal from "./ProjectModal";
+import DeleteModal from "./DeleteModal";
 
 export const AppwriteContext = createContext(null);
 
@@ -11,6 +12,7 @@ export default function AppwriteContextProvider({ children }) {
   const [toastActive, setToastActive] = useState(false);
   const [message, setMessage] = useState("");
   const [projectToEdit, setProjecttoEdit] = useState(null);
+  const [projectToDelete, setProjectToDelete] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
   const [APPWRITE_URL, PROJECT_ID, DATABASE_ID, COLLECTION_ID, CONTACTS_ID] = [
     import.meta.env.VITE_APPWRITE_ENDPOINT,
@@ -74,6 +76,11 @@ export default function AppwriteContextProvider({ children }) {
     } catch (error) {
       console.log(error);
     }
+  };
+
+  const handleOpenDeleteModal = (id) => {
+    setProjectToDelete(id);
+    document.getElementById("my_modal_del").showModal();
   };
 
   const handleDeleteProject = async (id) => {
@@ -213,8 +220,8 @@ export default function AppwriteContextProvider({ children }) {
     <AppwriteContext.Provider
       value={{
         handleCreateProject,
-        handleDeleteProject,
         handleEditModalOpen,
+        handleOpenDeleteModal,
         handleCreateModalOpen,
         handleEditContractAmount,
         handleEditAmountPaid,
@@ -235,6 +242,10 @@ export default function AppwriteContextProvider({ children }) {
         isEditing={isEditing}
         setIsEditing={setIsEditing}
         toastActive={toastActive}
+      />
+      <DeleteModal
+        projectToDelete={projectToDelete}
+        handleDeleteProject={handleDeleteProject}
       />
     </AppwriteContext.Provider>
   );

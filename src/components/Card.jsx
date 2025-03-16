@@ -4,7 +4,7 @@ import { useAppwriteContext } from "./AppwriteContext";
 import { Link } from "react-router-dom";
 
 export default function Card({ data }) {
-  const { handleDeleteProject, handleEditModalOpen } = useAppwriteContext();
+  const { handleOpenDeleteModal, handleEditModalOpen } = useAppwriteContext();
   return (
     <div className="card bg-base-200 w-84 shadow-xl">
       <div className="absolute top-3 right-3 z-100">
@@ -39,7 +39,7 @@ export default function Card({ data }) {
               </a>
             </li>
             <li>
-              <a onClick={() => handleDeleteProject(data.$id)}>
+              <a onClick={() => handleOpenDeleteModal(data.$id)}>
                 <Icon
                   icon="material-symbols:delete-outline"
                   className="text-lg"
