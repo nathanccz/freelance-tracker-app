@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useAppwriteContext } from "./AppwriteContext";
+import { useAppwriteContext } from "./appwriteContext";
 import Stats from "./Stats";
 
 export default function Main({ setActiveRoute }) {

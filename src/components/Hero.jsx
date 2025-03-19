@@ -1,4 +1,7 @@
+// import { useAuthContext } from "./authContext";
+
 export default function Hero() {
+  // const { handleAuthenticateUser } = useAuthContext();
   return (
     <>
       <div
@@ -29,9 +32,13 @@ export default function Hero() {
               <input type="text" className="grow" placeholder="Email" />
             </label>
             <div className="flex gap-5 justify-center">
-              <a href="/dashboard">
-                <button className="btn btn-success">Get Started</button>
-              </a>
+              <button
+                className="btn btn-success"
+                // onClick={handleAuthenticateUser}
+              >
+                Get Started
+              </button>
+
               <a href="/dashboard">
                 <button className="btn btn-primary">Log In As Guest</button>
               </a>

@@ -1,9 +1,10 @@
 import ActiveClients from "../components/ActiveClients.jsx";
-import AppwriteContextProvider from "../components/AppwriteContext";
+import AppwriteContextProvider from "../components/appwriteContext";
 import FAQs from "../components/FAQs";
 import History from "../components/History.jsx";
 import Leads from "../components/Leads";
 import Main from "../components/Main";
+import Notifications from "../components/Notifications.jsx";
 import ProjectHome from "../components/ProjectHome.jsx";
 import Resources from "../components/Resources.jsx";
 import Sidebar from "../components/Sidebar";
@@ -18,6 +19,9 @@ export default function Dashboard({ route }) {
       <AppwriteContextProvider>
         <Sidebar activeRoute={activeRoute} />
         {route === "dashboard" && <Main setActiveRoute={setActiveRoute} />}
+        {route === "notifications" && (
+          <Notifications setActiveRoute={setActiveRoute} />
+        )}
         {route === "leads" && (
           <Leads
             setActiveRoute={setActiveRoute}

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import ContactList from "./ContactList";
-import { useAppwriteContext } from "./AppwriteContext";
+import { useAppwriteContext } from "./appwriteContext";
 import { filterDefaultFields } from "../../utils/helpers";
 import { useParams } from "react-router-dom";
 

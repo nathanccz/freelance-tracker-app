@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { useAppwriteContext } from "./AppwriteContext";
+import { useAppwriteContext } from "./appwriteContext";
 
 export default function Sidebar({ activeRoute }) {
   const [totalLeads, setTotalLeads] = useState(null);
@@ -34,6 +34,16 @@ export default function Sidebar({ activeRoute }) {
       <ul className="menu bg-base-200 rounded-box w-full gap-3 text-lg font-bold">
         <li className={activeRoute === "dashboard" ? "bg-gray-300" : undefined}>
           <Link to={"/dashboard"}>Dashboard</Link>
+        </li>
+        <li
+          className={
+            activeRoute === "notifications" ? "bg-gray-300" : undefined
+          }
+        >
+          <Link to={"/notifications"} className="flex justify-between">
+            <div>Notifications</div>
+            <div className="bg-gray-200 px-2 rounded-full">5</div>
+          </Link>
         </li>
         <li className={activeRoute === "active" ? "bg-gray-300" : undefined}>
           <Link to={"/active"} className="flex justify-between">

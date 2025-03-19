@@ -1,7 +1,7 @@
 import { Icon } from "@iconify/react/dist/iconify.js";
 import { useEffect, useState } from "react";
 import { isValidEmail, isEmpty } from "../../utils/helpers";
-import { useAppwriteContext } from "./AppwriteContext";
+import { useAppwriteContext } from "./appwriteContext";
 import { filterDefaultFields } from "../../utils/helpers";
 import Dropdown from "./Dropdown";
 

@@ -1,6 +1,6 @@
 import { Icon } from "@iconify/react/dist/iconify.js";
 import { formatDate } from "../../utils/helpers";
-import { useAppwriteContext } from "./AppwriteContext";
+import { useAppwriteContext } from "./appwriteContext";
 import { Link } from "react-router-dom";
 
 export default function Card({ data }) {

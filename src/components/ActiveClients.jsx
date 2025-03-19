@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useAppwriteContext } from "./AppwriteContext";
+import { useAppwriteContext } from "./appwriteContext";
 import Card from "./Card";
 
 export default function ActiveClients({ setActiveRoute }) {

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useAppwriteContext } from "./AppwriteContext";
+import { useAppwriteContext } from "./appwriteContext";
 
 export default function History({ setActiveRoute }) {
   const [completed, setCompleted] = useState([]);

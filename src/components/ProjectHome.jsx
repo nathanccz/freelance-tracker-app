@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useAppwriteContext } from "./AppwriteContext";
+import { useAppwriteContext } from "./appwriteContext";
 import Timeline from "./Timeline";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import Documents from "./Documents";

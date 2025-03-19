@@ -3,9 +3,11 @@ import Sidebar from "./components/Sidebar";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
 import Dashboard from "./pages/Dashboard";
+// import AuthContextProvider from "./components/authContext";
 
 function App() {
   return (
+    // <AuthContextProvider>
     <BrowserRouter>
       <Routes>
         <Route path="/">
@@ -16,6 +18,9 @@ function App() {
           </Route> */}
         <Route path="/dashboard">
           <Route index element={<Dashboard route={"dashboard"} />} />
+        </Route>
+        <Route path="/notifications">
+          <Route index element={<Dashboard route={"notifications"} />} />
         </Route>
         <Route path="/leads">
           <Route index element={<Dashboard route={"leads"} />} />
@@ -37,6 +42,7 @@ function App() {
         </Route>
       </Routes>
     </BrowserRouter>
+    // </AuthContextProvider>
   );
 }
 
