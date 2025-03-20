@@ -1,14 +1,20 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useAppwriteContext } from "./appwriteContext";
+import { useAuthContext } from "./authContext";
 
 export default function Sidebar({ activeRoute }) {
   const [totalLeads, setTotalLeads] = useState(null);
   const [totalActive, setTotalActive] = useState(null);
   const { projects } = useAppwriteContext();
+  const { handleLogoutUser } = useAuthContext();
 
   useEffect(() => {
-    if (projects.length === 0) return;
+    if (projects.length === 0) {
+      setTotalActive(0);
+      setTotalLeads(0);
+      return;
+    }
 
     setTotalLeads(
       projects.filter((project) => project["is-active"] === false).length
@@ -16,6 +22,7 @@ export default function Sidebar({ activeRoute }) {
     setTotalActive(
       projects.filter((project) => project["is-active"] === true).length
     );
+    console.log(totalLeads);
   }, [projects]);
 
   return (
@@ -67,9 +74,13 @@ export default function Sidebar({ activeRoute }) {
           <Link to={"/faqs"}>FAQs</Link>
         </li>
       </ul>
-      <a href="/logout">
-        <button className="btn btn-outline mt-8 mx-7 w-4/5">Log Out</button>
-      </a>
+
+      <button
+        className="btn btn-outline mt-8 mx-7 w-4/5"
+        onClick={handleLogoutUser}
+      >
+        Log Out
+      </button>
     </aside>
   );
 }

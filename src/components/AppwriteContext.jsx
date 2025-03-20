@@ -4,10 +4,12 @@ import Toast from "./Toast";
 import ProjectModal from "./ProjectModal";
 import DeleteModal from "./DeleteModal";
 import DeleteContactModal from "./DeleteContactModal";
+import { useAuthContext } from "./authContext";
 
 export const AppwriteContext = createContext(null);
 
 export default function AppwriteContextProvider({ children }) {
+  const { user } = useAuthContext();
   const [projects, setProjects] = useState([]);
   const [contacts, setContacts] = useState([]);
   const [toastActive, setToastActive] = useState(false);
@@ -28,20 +30,26 @@ export default function AppwriteContextProvider({ children }) {
   const databases = new Databases(client);
 
   useEffect(() => {
+    if (!user) return;
     async function fetchData() {
       try {
         const [projectsData, contactsData] = await Promise.all([
-          databases.listDocuments(DATABASE_ID, COLLECTION_ID),
-          databases.listDocuments(DATABASE_ID, CONTACTS_ID),
+          databases.listDocuments(DATABASE_ID, COLLECTION_ID, [
+            Query.equal("userId", [user.$id]),
+          ]),
+          databases.listDocuments(DATABASE_ID, CONTACTS_ID, [
+            Query.equal("userId", [user.$id]),
+          ]),
         ]);
         setProjects(projectsData.documents);
         setContacts(contactsData.documents);
+        console.log(projectsData);
       } catch (error) {
         console.log(error);
       }
     }
     fetchData();
-  }, [toastActive]);
+  }, [user, toastActive]);
 
   const handleCreateProject = async (data) => {
     try {
@@ -51,6 +59,7 @@ export default function AppwriteContextProvider({ children }) {
         ID.unique(),
         {
           ...data,
+          userId: user.$id,
           ["is-active"]: data["is-active"] === "true",
           ["contract-amount"]: Number(data["contract-amount"]),
           ["amount-paid"]: Number(data["amount-paid"]),
@@ -174,7 +183,7 @@ export default function AppwriteContextProvider({ children }) {
         DATABASE_ID,
         CONTACTS_ID,
         ID.unique(),
-        { ...document, ["project-id"]: id }
+        { ...document, ["project-id"]: id, userId: user.$id }
       );
       setMessage("New contact has been added!");
       setToastActive(true);

@@ -24,7 +24,7 @@ export default function Main({ setActiveRoute }) {
       <button className="btn btn-primary mb-3" onClick={handleCreateModalOpen}>
         Create New Project
       </button>
-      <Stats leads={totalLeads} active={totalActive} />
+      <Stats leads={totalLeads || 0} active={totalActive || 0} />
     </main>
   );
 }
