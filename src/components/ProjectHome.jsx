@@ -9,10 +9,15 @@ import ContactsModal from "./ContactsModal";
 
 export default function ProjectHome({ setActiveRoute }) {
   const { id } = useParams();
-  const { projects, handleEditContractAmount, handleEditAmountPaid } =
-    useAppwriteContext();
+  const {
+    projects,
+    handleEditContractAmount,
+    handleEditAmountPaid,
+    handleAddProjectType,
+  } = useAppwriteContext();
   const [isEditingContractAmount, setIsEditingContractAmount] = useState(false);
   const [isEditingAmountPaid, setIsEditingAmountPaid] = useState(false);
+  const [isEditingProjectType, setIsEditingProjectType] = useState(false);
   const [contractInput, setContractInput] = useState("");
   const [amountPaidInput, setAmountPaidInput] = useState("");
 
@@ -46,9 +51,67 @@ export default function ProjectHome({ setActiveRoute }) {
     document.getElementById("contacts_modal").showModal();
   };
 
+  const clickAddProjectType = (e) => {
+    if (e.target.tagName === "A") {
+      const projectType = e.target.textContent;
+      handleAddProjectType(project.$id, projectType);
+      setIsEditingProjectType(false);
+    }
+  };
+
   return (
     <main className="p-10 w-full">
       <h1 className="text-3xl font-bold mb-4">{project?.["business-name"]}</h1>
+      {!project?.["project-type"] || isEditingProjectType ? (
+        <div className="dropdown">
+          <div tabIndex={0} role="button" className="btn m-1">
+            + Add project type
+          </div>
+          <ul
+            tabIndex={0}
+            className="dropdown-content menu bg-slate-200 rounded-box z-1 w-52 p-2 shadow-sm"
+            onClick={clickAddProjectType}
+          >
+            <li>
+              <a>Static Website</a>
+            </li>
+            <li>
+              <a>WordPress/CMS Site</a>
+            </li>
+            <li>
+              <a>Landing Page</a>
+            </li>
+            <li>
+              <a>E-commerce Website</a>
+            </li>
+            <li>
+              <a>Custom API Development</a>
+            </li>
+            <li>
+              <a>Full-stack web app</a>
+            </li>
+            <li>
+              <a>Web Maintenance</a>
+            </li>
+            <li>
+              <a>Other</a>
+            </li>
+          </ul>
+        </div>
+      ) : (
+        <div className="flex gap-2">
+          <span className="font-bold">
+            Project type: {project?.["project-type"]}
+          </span>
+          <div className="rounded-full p-1 hover:bg-gray-300 duration-300 cursor-pointer">
+            <Icon
+              icon="material-symbols:edit-outline"
+              className="text-xl"
+              onClick={() => setIsEditingProjectType(true)}
+            />
+          </div>
+        </div>
+      )}
       <div className="flex flex-col xl:flex-row w-full gap-5">
         <div className="basis-[75%]">
           <div className="grid grid-cols-2 gap-3 mb-4">

@@ -16,12 +16,8 @@ export default function Sidebar({ activeRoute }) {
       return;
     }
 
-    setTotalLeads(
-      projects.filter((project) => project["is-active"] === false).length
-    );
-    setTotalActive(
-      projects.filter((project) => project["is-active"] === true).length
-    );
+    setTotalLeads(projects.filter((project) => !project["is-active"]).length);
+    setTotalActive(projects.filter((project) => project["is-active"]).length);
     console.log(totalLeads);
   }, [projects]);
 
@@ -42,6 +38,22 @@ export default function Sidebar({ activeRoute }) {
         <li className={activeRoute === "dashboard" ? "bg-gray-300" : undefined}>
           <Link to={"/dashboard"}>Dashboard</Link>
         </li>
+        <li className={activeRoute === "active" ? "bg-gray-300" : undefined}>
+          <Link to={"/active"} className="flex justify-between">
+            <div>Active</div>
+            <div className="bg-gray-200 px-2 rounded-full">
+              {totalActive > 0 ? totalActive : ""}
+            </div>
+          </Link>
+        </li>
+        <li className={activeRoute === "leads" ? "bg-gray-300" : undefined}>
+          <Link to={"/leads"} className="flex justify-between">
+            <div>Leads</div>
+            <div className="bg-gray-200 px-2 rounded-full">
+              {totalLeads > 0 ? totalLeads : ""}
+            </div>
+          </Link>
+        </li>
         <li
           className={
             activeRoute === "notifications" ? "bg-gray-300" : undefined
@@ -50,18 +62,6 @@ export default function Sidebar({ activeRoute }) {
           <Link to={"/notifications"} className="flex justify-between">
             <div>Notifications</div>
             <div className="bg-gray-200 px-2 rounded-full">5</div>
-          </Link>
-        </li>
-        <li className={activeRoute === "active" ? "bg-gray-300" : undefined}>
-          <Link to={"/active"} className="flex justify-between">
-            <div>Active</div>
-            <div className="bg-gray-200 px-2 rounded-full">{totalActive}</div>
-          </Link>
-        </li>
-        <li className={activeRoute === "leads" ? "bg-gray-300" : undefined}>
-          <Link to={"/leads"} className="flex justify-between">
-            <div>Leads</div>
-            <div className="bg-gray-200 px-2 rounded-full">{totalLeads}</div>
           </Link>
         </li>
         <li className={activeRoute === "history" ? "bg-gray-300" : undefined}>

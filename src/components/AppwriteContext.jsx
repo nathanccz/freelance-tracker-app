@@ -231,6 +231,36 @@ export default function AppwriteContextProvider({ children }) {
     }
   };
 
+  const handleSetToActiveClient = async (id) => {
+    try {
+      await databases.updateDocument(DATABASE_ID, COLLECTION_ID, id, {
+        "is-active": true,
+      });
+      setMessage("This project is now active!");
+      setToastActive(true);
+      await new Promise((resolve) => setTimeout(resolve, 3000));
+      setToastActive(false);
+      setMessage("");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleAddProjectType = async (projectId, projectType) => {
+    try {
+      await databases.updateDocument(DATABASE_ID, COLLECTION_ID, projectId, {
+        "project-type": projectType,
+      });
+      setMessage("Updated project type!");
+      setToastActive(true);
+      await new Promise((resolve) => setTimeout(resolve, 3000));
+      setToastActive(false);
+      setMessage("");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <AppwriteContext.Provider
       value={{
@@ -242,10 +272,12 @@ export default function AppwriteContextProvider({ children }) {
         handleEditAmountPaid,
         handleAddNewContact,
         handleEditContact,
+        handleSetToActiveClient,
         setIsEditing,
         contactToDelete,
         setContactToDelete,
         handleDeleteContact,
+        handleAddProjectType,
         projects,
         contacts,
       }}

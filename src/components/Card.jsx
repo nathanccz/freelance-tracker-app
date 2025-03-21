@@ -4,7 +4,11 @@ import { useAppwriteContext } from "./appwriteContext";
 import { Link } from "react-router-dom";
 
 export default function Card({ data }) {
-  const { handleOpenDeleteModal, handleEditModalOpen } = useAppwriteContext();
+  const {
+    handleOpenDeleteModal,
+    handleEditModalOpen,
+    handleSetToActiveClient,
+  } = useAppwriteContext();
   return (
     <div className="card bg-base-200 w-84 shadow-xl">
       <div className="absolute top-3 right-3 z-100">
@@ -18,7 +22,7 @@ export default function Card({ data }) {
           >
             {data["is-active"] === false && (
               <li>
-                <a>
+                <a onClick={() => handleSetToActiveClient(data.$id)}>
                   <Icon icon="codicon:vm-active" className="text-lg" /> Set to
                   active
                 </a>
