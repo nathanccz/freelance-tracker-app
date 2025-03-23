@@ -23,7 +23,7 @@ export default function Main({ setActiveRoute }) {
   return (
     <main className="p-10 w-full">
       <h1 className="text-3xl font-bold mb-4">
-        Welcome, {user.$name.split(" ")[0]}
+        Welcome, {user?.name.split(" ")[0]}
       </h1>
       <button className="btn btn-primary mb-3" onClick={handleCreateModalOpen}>
         Create New Project

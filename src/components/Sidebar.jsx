@@ -30,8 +30,8 @@ export default function Sidebar({ activeRoute }) {
           </div>
         </div>
         <div className="mt-2 ml-3">
-          <h3 className="font-bold">{user.$name}</h3>
-          <span>{user.$email}</span>
+          <h3 className="font-bold">{user?.name}</h3>
+          <span>{user?.email}</span>
         </div>
       </div>
       <ul className="menu bg-base-200 rounded-box w-full gap-3 text-lg font-bold">
