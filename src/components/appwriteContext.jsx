@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState, useMemo } from "react";
-import { Client, Databases, ID, Query } from "appwrite";
+import { Client, Storage, Databases, ID, Query } from "appwrite";
 import Toast from "./Toast";
 import ProjectModal from "./ProjectModal";
 import DeleteModal from "./DeleteModal";
@@ -12,38 +12,54 @@ export default function AppwriteContextProvider({ children }) {
   const { user } = useAuthContext();
   const [projects, setProjects] = useState([]);
   const [contacts, setContacts] = useState([]);
+  const [documents, setDocuments] = useState([]);
   const [toastActive, setToastActive] = useState(false);
   const [message, setMessage] = useState("");
   const [projectToEdit, setProjecttoEdit] = useState(null);
   const [projectToDelete, setProjectToDelete] = useState(null);
   const [contactToDelete, setContactToDelete] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
-  const [APPWRITE_URL, PROJECT_ID, DATABASE_ID, COLLECTION_ID, CONTACTS_ID] = [
+  const [
+    APPWRITE_URL,
+    PROJECT_ID,
+    DATABASE_ID,
+    COLLECTION_ID,
+    CONTACTS_ID,
+    DOCUMENTS_ID,
+    BUCKET_ID,
+  ] = [
     import.meta.env.VITE_APPWRITE_ENDPOINT,
     import.meta.env.VITE_APPWRITE_PROJECT_ID,
     import.meta.env.VITE_APPWRITE_DATABASE_ID,
     import.meta.env.VITE_APPWRITE_COLLECTION_ID,
     import.meta.env.VITE_APPWRITE_CONTACTS_COLLECTION_ID,
+    import.meta.env.VITE_APPWRITE_DOCUMENTS_COLLECTION_ID,
+    import.meta.env.VITE_APPWRITE_BUCKET_ID,
   ];
 
   const client = new Client().setEndpoint(APPWRITE_URL).setProject(PROJECT_ID);
   const databases = new Databases(client);
+  const storage = new Storage(client);
 
   useEffect(() => {
     if (!user) return;
     async function fetchData() {
       try {
-        const [projectsData, contactsData] = await Promise.all([
+        const [projectsData, contactsData, documentsData] = await Promise.all([
           databases.listDocuments(DATABASE_ID, COLLECTION_ID, [
             Query.equal("userId", [user.$id]),
           ]),
           databases.listDocuments(DATABASE_ID, CONTACTS_ID, [
             Query.equal("userId", [user.$id]),
           ]),
+          databases.listDocuments(DATABASE_ID, DOCUMENTS_ID, [
+            Query.equal("userId", [user.$id]),
+          ]),
         ]);
         setProjects(projectsData.documents);
         setContacts(contactsData.documents);
-        console.log(projectsData);
+        setDocuments(documentsData.documents);
+        console.log(documentsData);
       } catch (error) {
         console.log(error);
       }
@@ -261,6 +277,61 @@ export default function AppwriteContextProvider({ children }) {
     }
   };
 
+  const addToDocumentsCollection = async (projectId, documentType, fileId) => {
+    try {
+      const response = await databases.createDocument(
+        DATABASE_ID,
+        DOCUMENTS_ID,
+        ID.unique(),
+        {
+          userId: user.$id,
+          projectId: projectId,
+          documentType: documentType,
+          fileId: fileId,
+        }
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleFileUpload = async (projectId, inputId, documentType) => {
+    if (!projectId || !inputId || !documentType) {
+      console.error(
+        "Requires a valid project ID, input element ID, and document type."
+      );
+      return;
+    }
+
+    try {
+      const response = await storage.createFile(
+        BUCKET_ID,
+        ID.unique(),
+        document.getElementById(inputId).files[0]
+      );
+
+      const fileId = response.$id;
+
+      await addToDocumentsCollection(projectId, documentType, fileId);
+      setMessage(`New ${documentType} has been added!`);
+      setToastActive(true);
+      await new Promise((resolve) => setTimeout(resolve, 3000));
+      setToastActive(false);
+      setMessage("");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleFileDownload = (fileId) => {
+    try {
+      const url = storage.getFileDownload(BUCKET_ID, fileId);
+      window.location.href = url;
+    } catch (error) {
+      console.error("Download failed:", error);
+    }
+  };
+
   return (
     <AppwriteContext.Provider
       value={{
@@ -278,8 +349,11 @@ export default function AppwriteContextProvider({ children }) {
         setContactToDelete,
         handleDeleteContact,
         handleAddProjectType,
+        handleFileUpload,
+        handleFileDownload,
         projects,
         contacts,
+        documents,
       }}
     >
       {children}

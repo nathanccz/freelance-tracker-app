@@ -20,6 +20,7 @@ export default function ProjectHome({ setActiveRoute }) {
   const [isEditingProjectType, setIsEditingProjectType] = useState(false);
   const [contractInput, setContractInput] = useState("");
   const [amountPaidInput, setAmountPaidInput] = useState("");
+  const [isHovered, setIsHovered] = useState(false);
 
   const project = projects.find((project) => project.$id === id);
 
@@ -99,17 +100,23 @@ export default function ProjectHome({ setActiveRoute }) {
           </ul>
         </div>
       ) : (
-        <div className="flex gap-2">
-          <span className="font-bold">
+        <div
+          className="flex gap-2"
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
+        >
+          <h3 className="font-bold mb-2">
             Project type: {project?.["project-type"]}
-          </span>
-          <div className="rounded-full p-1 hover:bg-gray-300 duration-300 cursor-pointer">
-            <Icon
-              icon="material-symbols:edit-outline"
-              className="text-xl"
-              onClick={() => setIsEditingProjectType(true)}
-            />
-          </div>
+          </h3>
+          {isHovered && (
+            <div className="rounded-full p-1 hover:bg-gray-300 duration-300 cursor-pointer ">
+              <Icon
+                icon="material-symbols:edit-outline"
+                className="text-xl"
+                onClick={() => setIsEditingProjectType(true)}
+              />
+            </div>
+          )}
         </div>
       )}
       <div className="flex flex-col xl:flex-row w-full gap-5">
@@ -243,7 +250,7 @@ export default function ProjectHome({ setActiveRoute }) {
               </div>
             </div>
           </div>
-          <Documents />
+          <Documents projectId={id} />
           <Notes />
         </div>
         <div>
