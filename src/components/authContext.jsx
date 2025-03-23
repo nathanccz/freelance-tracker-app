@@ -40,8 +40,8 @@ export default function AuthContextProvider({ children }) {
   const handleGoogleLogin = () => {
     account.createOAuth2Session(
       OAuthProvider.Google,
-      "http://localhost:5173/dashboard",
-      "http://localhost:5173/",
+      "https://100devs-freelance.netlify.app/dashboard",
+      "https://100devs-freelance.netlify.app/",
       []
     );
   };
