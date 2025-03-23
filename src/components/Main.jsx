@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react";
 import { useAppwriteContext } from "./appwriteContext";
 import Stats from "./Stats";
+import { useAuthContext } from "./authContext";
 
 export default function Main({ setActiveRoute }) {
   const [totalLeads, setTotalLeads] = useState(null);
   const [totalActive, setTotalActive] = useState(null);
   const { handleCreateModalOpen, toastActive, projects } = useAppwriteContext();
+  const { user } = useAuthContext;
 
   useEffect(() => {
     setActiveRoute("dashboard");
@@ -20,7 +22,9 @@ export default function Main({ setActiveRoute }) {
 
   return (
     <main className="p-10 w-full">
-      <h1 className="text-3xl font-bold mb-4">Dashboard</h1>
+      <h1 className="text-3xl font-bold mb-4">
+        Welcome, {user.$name.split(" ")[0]}
+      </h1>
       <button className="btn btn-primary mb-3" onClick={handleCreateModalOpen}>
         Create New Project
       </button>

@@ -27,7 +27,7 @@ export default function AuthContextProvider({ children }) {
         setIsAuthenticated(true);
         console.log("User authenticated:", userData);
       } catch (error) {
-        console.log(error);
+        window.location.replace("/");
       } finally {
         setLoading(false);
       }
