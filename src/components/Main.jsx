@@ -7,7 +7,7 @@ export default function Main({ setActiveRoute }) {
   const [totalLeads, setTotalLeads] = useState(null);
   const [totalActive, setTotalActive] = useState(null);
   const { handleCreateModalOpen, toastActive, projects } = useAppwriteContext();
-  const { user } = useAuthContext;
+  const { user } = useAuthContext();
 
   useEffect(() => {
     setActiveRoute("dashboard");
