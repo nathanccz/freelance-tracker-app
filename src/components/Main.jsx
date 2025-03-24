@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useAppwriteContext } from "./appwriteContext";
 import Stats from "./Stats";
 import { useAuthContext } from "./authContext";
+import FinanceChart from "./FinanceChart";
 
 export default function Main({ setActiveRoute }) {
   const [totalLeads, setTotalLeads] = useState(null);
@@ -29,6 +30,9 @@ export default function Main({ setActiveRoute }) {
         Create New Project
       </button>
       <Stats leads={totalLeads || 0} active={totalActive || 0} />
+      <div className="p-8 flex items-center justify-center">
+        <FinanceChart />
+      </div>
     </main>
   );
 }
