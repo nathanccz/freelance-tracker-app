@@ -277,7 +277,12 @@ export default function AppwriteContextProvider({ children }) {
     }
   };
 
-  const addToDocumentsCollection = async (projectId, documentType, fileId) => {
+  const addToDocumentsCollection = async (
+    projectId,
+    documentType,
+    fileId,
+    fileName
+  ) => {
     try {
       const response = await databases.createDocument(
         DATABASE_ID,
@@ -288,6 +293,8 @@ export default function AppwriteContextProvider({ children }) {
           projectId: projectId,
           documentType: documentType,
           fileId: fileId,
+          fileName: fileName,
+          uploadedAt: new Date(),
         }
       );
     } catch (error) {
@@ -304,15 +311,17 @@ export default function AppwriteContextProvider({ children }) {
     }
 
     try {
+      const fileToUpload = document.getElementById(inputId).files[0];
       const response = await storage.createFile(
         BUCKET_ID,
         ID.unique(),
-        document.getElementById(inputId).files[0]
+        fileToUpload
       );
 
       const fileId = response.$id;
+      const fileName = fileToUpload.name;
 
-      await addToDocumentsCollection(projectId, documentType, fileId);
+      await addToDocumentsCollection(projectId, documentType, fileId, fileName);
       setMessage(`New ${documentType} has been added!`);
       setToastActive(true);
       await new Promise((resolve) => setTimeout(resolve, 3000));
@@ -329,6 +338,22 @@ export default function AppwriteContextProvider({ children }) {
       window.location.href = url;
     } catch (error) {
       console.error("Download failed:", error);
+    }
+  };
+
+  const handleDeleteFile = async (fileId, documentId) => {
+    try {
+      const [deleteFileRes, deleteDocRes] = await Promise.all([
+        storage.deleteFile(BUCKET_ID, fileId),
+        databases.deleteDocument(DATABASE_ID, DOCUMENTS_ID, documentId),
+      ]);
+      setMessage(`File was deleted!`);
+      setToastActive(true);
+      await new Promise((resolve) => setTimeout(resolve, 3000));
+      setToastActive(false);
+      setMessage("");
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -351,6 +376,7 @@ export default function AppwriteContextProvider({ children }) {
         handleAddProjectType,
         handleFileUpload,
         handleFileDownload,
+        handleDeleteFile,
         projects,
         contacts,
         documents,

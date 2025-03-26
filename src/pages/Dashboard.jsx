@@ -7,6 +7,7 @@ import Main from "../components/Main";
 import Notifications from "../components/Notifications.jsx";
 import ProjectHome from "../components/ProjectHome.jsx";
 import Resources from "../components/Resources.jsx";
+import SearchBar from "../components/SearchBar.jsx";
 import Sidebar from "../components/Sidebar";
 import { useState, useEffect } from "react";
 
@@ -15,9 +16,10 @@ export default function Dashboard({ route }) {
   const [projectView, setProjectView] = useState("");
 
   return (
-    <div className="flex">
+    <div className="flex relative">
       <AppwriteContextProvider>
         <Sidebar activeRoute={activeRoute} />
+        <SearchBar />
         {route === "dashboard" && <Main setActiveRoute={setActiveRoute} />}
         {route === "notifications" && (
           <Notifications setActiveRoute={setActiveRoute} />

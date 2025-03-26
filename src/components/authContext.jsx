@@ -28,7 +28,7 @@ export default function AuthContextProvider({ children }) {
         console.log("User authenticated:", userData);
       } catch (error) {
         console.log(error);
-        // window.location.replace("/");
+        window.location.replace("/");
       } finally {
         setLoading(false);
       }
@@ -40,8 +40,8 @@ export default function AuthContextProvider({ children }) {
   const handleGoogleLogin = () => {
     account.createOAuth2Session(
       OAuthProvider.Google,
-      "https://100devs-freelance.netlify.app/dashboard",
-      "https://100devs-freelance.netlify.app/",
+      "http://localhost:5173/dashboard",
+      "http://localhost:5173/",
       []
     );
   };
