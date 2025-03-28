@@ -67,7 +67,7 @@ export default function AppwriteContextProvider({ children }) {
     fetchData();
   }, [user, toastActive]);
 
-  const handleCreateProject = async (data) => {
+  const createProject = async (data) => {
     try {
       const response = await databases.createDocument(
         DATABASE_ID,
@@ -360,7 +360,7 @@ export default function AppwriteContextProvider({ children }) {
   return (
     <AppwriteContext.Provider
       value={{
-        handleCreateProject,
+        createProject,
         handleEditModalOpen,
         handleOpenDeleteModal,
         handleCreateModalOpen,
@@ -385,7 +385,7 @@ export default function AppwriteContextProvider({ children }) {
       {children}
       {toastActive && <Toast text={message} />}
       <ProjectModal
-        handleCreateProject={handleCreateProject}
+        createProject={createProject}
         handleEditProject={handleEditProject}
         data={projectToEdit}
         setProjecttoEdit={setProjecttoEdit}

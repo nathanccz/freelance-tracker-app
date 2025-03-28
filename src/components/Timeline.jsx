@@ -93,7 +93,12 @@ export default function Timeline() {
         </li>
       </ul>
       <div className="w-full flex justify-center">
-        <button className="btn btn-wide mx-auto">
+        <button
+          className="btn btn-wide mx-auto"
+          onClick={() =>
+            document.getElementById("my_modal_timeline").showModal()
+          }
+        >
           <Icon icon="material-symbols:edit-outline" className="text-xl" /> Edit
           Timeline
         </button>

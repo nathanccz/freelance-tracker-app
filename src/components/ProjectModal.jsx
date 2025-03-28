@@ -4,7 +4,7 @@ import { filterDefaultFields } from "../../utils/helpers";
 
 export default function ProjectModal({
   isEditing,
-  handleCreateProject,
+  createProject,
   handleEditProject,
   data,
   setIsEditing,
@@ -190,7 +190,7 @@ export default function ProjectModal({
                 <button
                   className="btn btn-accent"
                   onClick={() => {
-                    handleCreateProject(formData);
+                    createProject(formData);
                     setFormData(formFields);
                   }}
                 >

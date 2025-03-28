@@ -15,7 +15,6 @@ export default function Documents({ projectId }) {
   const [allDocuments, setAllDocuments] = useState({});
 
   useEffect(() => {
-    console.log(allDocuments);
     const filtered = documents
       ?.filter((doc) => doc.projectId === projectId)
       ?.reduce((obj, curr) => {
@@ -23,9 +22,7 @@ export default function Documents({ projectId }) {
         return obj;
       }, {});
 
-    if (filtered && Object.keys(filtered).length > 0) {
-      setAllDocuments(filtered);
-    }
+    setAllDocuments(filtered);
   }, [documents]);
 
   const handleClickUpload = async (inputId, documentType) => {
@@ -51,7 +48,7 @@ export default function Documents({ projectId }) {
         <h2 className="font-bold text-xl mb-3">Client Agreements</h2>
         <div className="flex flex-col gap-5">
           <div className="flex gap-5 justify-between">
-            <div className="flex gap-4">
+            <div className="flex gap-4 items-center">
               <Icon icon="mage:file-2" className="text-5xl" />
               <div>
                 <h3
@@ -119,7 +116,7 @@ export default function Documents({ projectId }) {
             )}
           </div>
           <div className="flex gap-5 justify-between">
-            <div className="flex gap-4">
+            <div className="flex gap-4 items-center">
               <Icon icon="mage:file-2" className="text-5xl" />
               <div>
                 <h3
@@ -184,7 +181,7 @@ export default function Documents({ projectId }) {
         <h2 className="font-bold text-xl mb-3">Financial</h2>
         <div className="flex flex-col gap-5">
           <div className="flex gap-5 justify-between">
-            <div className="flex gap-4">
+            <div className="flex gap-4 items-center">
               <Icon icon="mage:file-2" className="text-5xl" />
               <div>
                 <h3
@@ -244,7 +241,7 @@ export default function Documents({ projectId }) {
             )}
           </div>
           <div className="flex gap-5 justify-between">
-            <div className="flex gap-4">
+            <div className="flex gap-4 items-center">
               <Icon icon="mage:file-2" className="text-5xl" />
               <div>
                 <h3

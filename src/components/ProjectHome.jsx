@@ -6,6 +6,7 @@ import Documents from "./Documents";
 import Notes from "./Notes";
 import { useParams } from "react-router-dom";
 import ContactsModal from "./ContactsModal";
+import TimelineEditModal from "./TimelineEditModal";
 
 export default function ProjectHome({ setActiveRoute }) {
   const { id } = useParams();
@@ -258,6 +259,7 @@ export default function ProjectHome({ setActiveRoute }) {
         </div>
       </div>
       <ContactsModal data={project} />
+      <TimelineEditModal />
     </main>
   );
 }
