@@ -60,15 +60,19 @@ export default function SearchBar() {
       {results && (
         <div className="w-full bg-slate-300 rounded mt-2 p-1 border-gray-400 border">
           <ul className="flex flex-col gap-2">
-            {results.map((result) => (
-              <li
-                className="cursor-pointer hover:bg-slate-100 transition duration-300 p-3 font-bold"
-                key={result.$id}
-                onClick={() => handleClickResult(result.$id)}
-              >
-                {result["business-name"]}
-              </li>
-            ))}
+            {results.length > 0 ? (
+              results.map((result) => (
+                <li
+                  className="cursor-pointer hover:bg-slate-100 transition duration-300 p-3 font-bold"
+                  key={result.$id}
+                  onClick={() => handleClickResult(result.$id)}
+                >
+                  {result["business-name"]}
+                </li>
+              ))
+            ) : (
+              <li className="p-3 italic">Nothing found.</li>
+            )}
           </ul>
         </div>
       )}
