@@ -16,7 +16,7 @@ export default function Dashboard({ route }) {
   const [projectView, setProjectView] = useState("");
 
   return (
-    <div className="flex relative">
+    <div className="flex relative max-w-[1400px] mx-auto h-screen">
       <AppwriteContextProvider>
         <Sidebar activeRoute={activeRoute} />
         <SearchBar />

@@ -122,13 +122,13 @@ export default function ProjectHome({ setActiveRoute }) {
       )}
       <div className="flex flex-col xl:flex-row w-full gap-5">
         <div className="basis-[75%]">
-          <div className="grid grid-cols-2 gap-3 mb-4">
+          <div className="flex flex-col md:grid md:grid-cols-2 gap-3 mb-4">
             <div className="card bg-base-100 w-full shadow-xl relative">
               {!isEditingContractAmount && (
                 <div className="absolute top-3 right-3 rounded-full p-1 hover:bg-gray-300 duration-300 cursor-pointer">
                   <Icon
                     icon="material-symbols:edit-outline"
-                    className="text-3xl"
+                    className="text-xl md:text-2xl lg:text-3xl"
                     onClick={() => setIsEditingContractAmount(true)}
                   />
                 </div>
@@ -166,7 +166,7 @@ export default function ProjectHome({ setActiveRoute }) {
                     </div>
                   </div>
                 ) : (
-                  <p className="text-4xl font-bold">
+                  <p className="text-3xl font-bold">
                     ${project?.["contract-amount"]}
                   </p>
                 )}
@@ -177,7 +177,7 @@ export default function ProjectHome({ setActiveRoute }) {
                 <div className="absolute top-3 right-3 rounded-full p-1 hover:bg-gray-300 duration-300 cursor-pointer">
                   <Icon
                     icon="material-symbols:edit-outline"
-                    className="text-3xl"
+                    className="text-xl md:text-2xl lg:text-3xl"
                     onClick={() => setIsEditingAmountPaid(true)}
                   />
                 </div>
@@ -215,7 +215,7 @@ export default function ProjectHome({ setActiveRoute }) {
                     </div>
                   </div>
                 ) : (
-                  <p className="text-4xl font-bold">
+                  <p className="text-3xl font-bold">
                     ${project?.["amount-paid"]}
                   </p>
                 )}
@@ -238,7 +238,7 @@ export default function ProjectHome({ setActiveRoute }) {
               <div className="absolute top-3 right-3 rounded-full p-1 hover:bg-gray-300 duration-300 cursor-pointer">
                 <Icon
                   icon="majesticons:open-line"
-                  className="text-3xl"
+                  className="text-xl md:text-2xl lg:text-3xl"
                   onClick={handleContactsModalOpen}
                 />
               </div>
