@@ -2,11 +2,12 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useAppwriteContext } from "./appwriteContext";
 import { useAuthContext } from "./authContext";
+import SkeletonSidebar from "./SkeletonSidebar";
 
 export default function Sidebar({ activeRoute }) {
   const [totalLeads, setTotalLeads] = useState(null);
   const [totalActive, setTotalActive] = useState(null);
-  const { projects } = useAppwriteContext();
+  const { projects, loading } = useAppwriteContext();
   const { handleLogoutUser, user } = useAuthContext();
 
   useEffect(() => {
@@ -21,7 +22,9 @@ export default function Sidebar({ activeRoute }) {
     console.log(totalLeads);
   }, [projects]);
 
-  return (
+  return loading ? (
+    <SkeletonSidebar />
+  ) : (
     <aside className="flex w-80 flex-col">
       <div className="flex mb-8 mt-4 mx-4">
         <div className="avatar placeholder">

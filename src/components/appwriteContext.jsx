@@ -10,6 +10,7 @@ export const AppwriteContext = createContext(null);
 
 export default function AppwriteContextProvider({ children }) {
   const { user } = useAuthContext();
+  const [loading, setLoading] = useState(true);
   const [projects, setProjects] = useState([]);
   const [contacts, setContacts] = useState([]);
   const [documents, setDocuments] = useState([]);
@@ -59,6 +60,7 @@ export default function AppwriteContextProvider({ children }) {
         setProjects(projectsData.documents);
         setContacts(contactsData.documents);
         setDocuments(documentsData.documents);
+        setLoading(false);
         console.log(documentsData);
       } catch (error) {
         console.log(error);
@@ -380,6 +382,7 @@ export default function AppwriteContextProvider({ children }) {
         projects,
         contacts,
         documents,
+        loading,
       }}
     >
       {children}

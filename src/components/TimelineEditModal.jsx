@@ -41,7 +41,10 @@ export default function TimelineEditModal() {
         <h3 className="font-bold text-xl mb-5">Edit Timeline</h3>
         <ul className="list bg-base-100 rounded-box shadow-md">
           {Object.keys(formData).map((milestone, index) => (
-            <li className="list-row flex items-center justify-between">
+            <li
+              className="list-row flex items-center justify-between"
+              key={milestone}
+            >
               <div className="text-4xl font-thin opacity-30 tabular-nums">
                 {(index + 1).toString().padStart(2, "0")}
               </div>
