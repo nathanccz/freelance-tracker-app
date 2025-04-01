@@ -56,12 +56,28 @@ export default function Card({ data }) {
       </div>
       <Link to={`/project/${data.$id}`}>
         <div className="card-body relative">
-          <h2 className="card-title">{data["business-name"]}</h2>
-          <p>Business type: {data["business-type"]}</p>
-          <p>Point of contact: {data["client-lead"]}</p>
-          <p>Business address: {data["business-address"]}</p>
-          <p>email: {data["email"]}</p>
-          <p>phone: {data["phone"]}</p>
+          <h2 className="card-title mt-4">{data["business-name"]}</h2>
+          <p>
+            <span className="font-bold">Business type:</span>{" "}
+            {data["business-type"]}
+          </p>
+          <p>
+            <span className="font-bold">Point of contact:</span>{" "}
+            {data["client-lead"]}
+          </p>
+          <p>
+            <span className="font-bold">Business address:</span>{" "}
+            {data["business-address"]}
+          </p>
+          <p>
+            <span className="font-bold">Email:</span> {data["email"]}
+          </p>
+          <p>
+            <span className="font-bold">Phone:</span> {data["phone"]}
+          </p>
+          <p>
+            <span className="font-bold">Website:</span> {data["website"]}
+          </p>
           {data["is-active"] === true && (
             <div
               className="radial-progress bg-primary text-primary-content border-primary border-4"

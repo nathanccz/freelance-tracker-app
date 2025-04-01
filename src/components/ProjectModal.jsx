@@ -23,6 +23,7 @@ export default function ProjectModal({
     ["is-active"]: "",
     ["contract-amount"]: "",
     ["amount-paid"]: "",
+    ["website"]: "",
     ["created-at"]: new Date(),
   };
 
@@ -71,18 +72,18 @@ export default function ProjectModal({
             <option selected disabled>
               Type of business
             </option>
-            <option value="retail">Retail</option>
-            <option value="e-commerce">E-commerce</option>
-            <option value="manufacturing">Manufacturing </option>
-            <option value="hospitality">Hospitality & Tourism</option>
-            <option value="healthcare">Healthcare & Wellness</option>
-            <option value="restaurant">Restaurant Industry</option>
-            <option value="real estate">Real Estate</option>
-            <option value="finance">Finance & Banking</option>
-            <option value="education">Education & Training</option>
-            <option value="entertainment">Entertainment & Media</option>
-            <option value="web services">Web Services</option>
-            <option value="other">Other</option>
+            <option value="Retail">Retail</option>
+            <option value="E-commerce">E-commerce</option>
+            <option value="Manufacturing">Manufacturing </option>
+            <option value="Hospitality & Tourism">Hospitality & Tourism</option>
+            <option value="Healthcare & Wellness">Healthcare & Wellness</option>
+            <option value="Restaurant Industry">Restaurant Industry</option>
+            <option value="Real Estate">Real Estate</option>
+            <option value="Finance & Banking">Finance & Banking</option>
+            <option value="Finance & Banking">Education & Training</option>
+            <option value="Entertainment & Media">Entertainment & Media</option>
+            <option value="Web Services">Web Services</option>
+            <option value="Other">Other</option>
           </select>
           <label className="input input-bordered flex items-center gap-2">
             <Icon icon="tdesign:user-business-filled" className="text-2xl" />
@@ -150,6 +151,17 @@ export default function ProjectModal({
               value={formData["phone"]}
             />
           </label>
+          <label className="input input-bordered flex items-center gap-2">
+            <Icon icon="mdi:web" className="text-2xl" />
+            <input
+              type="text"
+              className="grow"
+              placeholder="Website"
+              name="website"
+              onChange={handleInputChange}
+              value={formData["website"]}
+            />
+          </label>
           <select
             className="select select-bordered w-full max-w-xs"
             name="is-active"
@@ -159,7 +171,7 @@ export default function ProjectModal({
             <option disabled selected>
               Is this an active client?
             </option>
-            <option value={"false"}>No, this is a prospective client.</option>
+            <option value={"false"}>No, this is a lead.</option>
             <option value={"true"}>Yes, this is an active client.</option>
           </select>
         </div>
