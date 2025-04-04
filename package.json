@@ -12,7 +12,12 @@
   "dependencies": {
     "@dnd-kit/sortable": "^10.0.0",
     "@iconify/react": "^5.2.0",
+    "@tiptap/extension-color": "^2.11.7",
+    "@tiptap/pm": "^2.11.7",
+    "@tiptap/react": "^2.11.7",
+    "@tiptap/starter-kit": "^2.11.7",
     "appwrite": "^17.0.0",
+    "prosemirror-view": "^1.38.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-router-dom": "^7.1.5",
@@ -32,6 +37,7 @@
     "globals": "^15.14.0",
     "install": "^0.13.0",
     "npm": "^11.1.0",
+    "sass-embedded": "^1.86.3",
     "vite": "^6.1.0"
   }
 }

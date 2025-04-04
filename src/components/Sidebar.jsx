@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useAppwriteContext } from "./appwriteContext";
 import { useAuthContext } from "./authContext";
 import SkeletonSidebar from "./SkeletonSidebar";
+import SearchBar from "./SearchBar";
 
 export default function Sidebar({ activeRoute }) {
   const [totalLeads, setTotalLeads] = useState(null);
@@ -37,6 +38,7 @@ export default function Sidebar({ activeRoute }) {
           <span>{user?.email}</span>
         </div>
       </div>
+      <SearchBar />
       <ul className="menu bg-base-200 rounded-box w-full gap-3 text-lg font-bold">
         <li className={activeRoute === "dashboard" ? "bg-gray-300" : undefined}>
           <Link to={"/dashboard"}>Dashboard</Link>

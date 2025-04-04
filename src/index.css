@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "prosemirror-view/style/prosemirror.css";
 @plugin "daisyui" {
   themes: light --default, winter --prefersdark;
 }
