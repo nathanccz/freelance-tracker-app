@@ -1,4 +1,4 @@
-import LoginField from "./LoginField";
+import LoginField from './LoginField'
 
 export default function Hero({ isLogin }) {
   return (
@@ -6,7 +6,7 @@ export default function Hero({ isLogin }) {
       <div
         className="hero min-h-screen z-50"
         style={{
-          backgroundImage: "url(./bg-home.jpg)",
+          backgroundImage: 'url(./bg-home.jpg)',
         }}
       >
         <div className="hero-overlay bg-opacity-50"></div>
@@ -33,11 +33,11 @@ export default function Hero({ isLogin }) {
               </label>
               <div className="flex gap-5 justify-center">
                 <a href="/login">
-                  <button className="btn btn-success">Get Started</button>
+                  <button className="btn btn-success">Log In</button>
                 </a>
 
                 <a href="/dashboard">
-                  <button className="btn btn-primary">Log In As Guest</button>
+                  <button className="btn btn-primary">Sign Up</button>
                 </a>
               </div>
             </div>
@@ -49,5 +49,5 @@ export default function Hero({ isLogin }) {
         )}
       </div>
     </>
-  );
+  )
 }
