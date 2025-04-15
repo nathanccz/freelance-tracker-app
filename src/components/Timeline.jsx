@@ -1,6 +1,10 @@
-import { Icon } from "@iconify/react/dist/iconify.js";
+import { Icon } from '@iconify/react/dist/iconify.js'
+import CompletedConfirmationModal from './CompletedConfirmationModal'
 
 export default function Timeline() {
+  const handleSetToComplete = () => {
+    document.getElementById('my_modal_completed').showModal()
+  }
   return (
     <div className="bg-slate-200 p-5 rounded-2xl">
       <h2 className="font-bold text-lg mb-3">Project Milestones</h2>
@@ -92,17 +96,25 @@ export default function Timeline() {
           </div>
         </li>
       </ul>
-      <div className="w-full flex justify-center">
+      <div className="w-full flex flex-col justify-center gap-3">
         <button
           className="btn btn-wide mx-auto"
           onClick={() =>
-            document.getElementById("my_modal_timeline").showModal()
+            document.getElementById('my_modal_timeline').showModal()
           }
         >
           <Icon icon="material-symbols:edit-outline" className="text-xl" /> Edit
           Timeline
         </button>
+        <button
+          className="btn btn-primary btn-wide mx-auto"
+          onClick={handleSetToComplete}
+        >
+          <Icon icon="material-symbols:save-outline" className="text-xl" />
+          Save as Completed
+        </button>
       </div>
+      <CompletedConfirmationModal />
     </div>
-  );
+  )
 }
