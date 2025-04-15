@@ -1,70 +1,70 @@
-import { useEffect, useState } from "react";
-import { useAppwriteContext } from "./appwriteContext";
-import Timeline from "./Timeline";
-import { Icon } from "@iconify/react/dist/iconify.js";
-import Documents from "./Documents";
-import Notes from "./Notes";
-import { useParams } from "react-router-dom";
-import ContactsModal from "./ContactsModal";
-import TimelineEditModal from "./TimelineEditModal";
+import { useEffect, useState } from 'react'
+import { useAppwriteContext } from './appwriteContext'
+import Timeline from './Timeline'
+import { Icon } from '@iconify/react/dist/iconify.js'
+import Documents from './Documents'
+import Notes from './Notes'
+import { useParams } from 'react-router-dom'
+import ContactsModal from './ContactsModal'
+import TimelineEditModal from './TimelineEditModal'
 
 export default function ProjectHome({ setActiveRoute }) {
-  const { id } = useParams();
+  const { id } = useParams()
   const {
     projects,
     handleEditContractAmount,
     handleEditAmountPaid,
     handleAddProjectType,
-  } = useAppwriteContext();
-  const [isEditingContractAmount, setIsEditingContractAmount] = useState(false);
-  const [isEditingAmountPaid, setIsEditingAmountPaid] = useState(false);
-  const [isEditingProjectType, setIsEditingProjectType] = useState(false);
-  const [contractInput, setContractInput] = useState("");
-  const [amountPaidInput, setAmountPaidInput] = useState("");
-  const [isHovered, setIsHovered] = useState(false);
+  } = useAppwriteContext()
+  const [isEditingContractAmount, setIsEditingContractAmount] = useState(false)
+  const [isEditingAmountPaid, setIsEditingAmountPaid] = useState(false)
+  const [isEditingProjectType, setIsEditingProjectType] = useState(false)
+  const [contractInput, setContractInput] = useState('')
+  const [amountPaidInput, setAmountPaidInput] = useState('')
+  const [isHovered, setIsHovered] = useState(false)
 
-  const project = projects.find((project) => project.$id === id);
+  const project = projects.find((project) => project.$id === id)
 
   useEffect(() => {
-    setActiveRoute("project");
-    setContractInput(project?.["contract-amount"]);
-    setAmountPaidInput(project?.["amount-paid"]);
-  }, [projects]);
+    setActiveRoute('project')
+    setContractInput(project?.['contract-amount'])
+    setAmountPaidInput(project?.['amount-paid'])
+  }, [projects])
 
   const handleClickSaveContractAmount = () => {
     if (isNaN(Number(contractInput))) {
-      alert("Please enter a number.");
-      return;
+      alert('Please enter a number.')
+      return
     }
-    handleEditContractAmount(id, contractInput);
-    setIsEditingContractAmount(false);
-  };
+    handleEditContractAmount(id, contractInput)
+    setIsEditingContractAmount(false)
+  }
 
   const handleClickSaveAmountPaid = () => {
     if (isNaN(Number(amountPaidInput))) {
-      alert("Please enter a number.");
-      return;
+      alert('Please enter a number.')
+      return
     }
-    handleEditAmountPaid(id, amountPaidInput);
-    setIsEditingAmountPaid(false);
-  };
+    handleEditAmountPaid(id, amountPaidInput)
+    setIsEditingAmountPaid(false)
+  }
 
   const handleContactsModalOpen = () => {
-    document.getElementById("contacts_modal").showModal();
-  };
+    document.getElementById('contacts_modal').showModal()
+  }
 
   const clickAddProjectType = (e) => {
-    if (e.target.tagName === "A") {
-      const projectType = e.target.textContent;
-      handleAddProjectType(project.$id, projectType);
-      setIsEditingProjectType(false);
+    if (e.target.tagName === 'A') {
+      const projectType = e.target.textContent
+      handleAddProjectType(project.$id, projectType)
+      setIsEditingProjectType(false)
     }
-  };
+  }
 
   return (
     <main className="p-10 w-full">
-      <h1 className="text-3xl font-bold mb-4">{project?.["business-name"]}</h1>
-      {!project?.["project-type"] || isEditingProjectType ? (
+      <h1 className="text-3xl font-bold mb-4">{project?.['business-name']}</h1>
+      {!project?.['project-type'] || isEditingProjectType ? (
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn m-1">
             + Add project type
@@ -107,7 +107,7 @@ export default function ProjectHome({ setActiveRoute }) {
           onMouseLeave={() => setIsHovered(false)}
         >
           <h3 className="font-bold mb-2">
-            Project type: {project?.["project-type"]}
+            Project type: {project?.['project-type']}
           </h3>
           {isHovered && (
             <div className="rounded-full p-1 hover:bg-gray-300 duration-300 cursor-pointer ">
@@ -151,8 +151,8 @@ export default function ProjectHome({ setActiveRoute }) {
                       <button
                         className="btn btn-secondary"
                         onClick={() => {
-                          setIsEditingContractAmount(false);
-                          setContractInput(project?.["contract-amount"]);
+                          setIsEditingContractAmount(false)
+                          setContractInput(project?.['contract-amount'])
                         }}
                       >
                         Cancel
@@ -167,7 +167,7 @@ export default function ProjectHome({ setActiveRoute }) {
                   </div>
                 ) : (
                   <p className="text-3xl font-bold">
-                    ${project?.["contract-amount"]}
+                    ${project?.['contract-amount']}
                   </p>
                 )}
               </div>
@@ -200,8 +200,8 @@ export default function ProjectHome({ setActiveRoute }) {
                       <button
                         className="btn btn-secondary"
                         onClick={() => {
-                          setIsEditingAmountPaid(false);
-                          setAmountPaidInput(project?.["amount-paid"]);
+                          setIsEditingAmountPaid(false)
+                          setAmountPaidInput(project?.['amount-paid'])
                         }}
                       >
                         Cancel
@@ -216,7 +216,7 @@ export default function ProjectHome({ setActiveRoute }) {
                   </div>
                 ) : (
                   <p className="text-3xl font-bold">
-                    ${project?.["amount-paid"]}
+                    ${project?.['amount-paid']}
                   </p>
                 )}
               </div>
@@ -224,10 +224,10 @@ export default function ProjectHome({ setActiveRoute }) {
             <div className="card bg-base-100 w-full shadow-xl relative">
               <div className="card-body text-center">
                 <h2 className="card-title mx-auto text-xl">
-                  <Icon icon="ri:progress-3-fill" className="text-2xl" />{" "}
+                  <Icon icon="ri:progress-3-fill" className="text-2xl" />{' '}
                   Progress Made
                 </h2>
-                {project?.["is-active"] === false ? (
+                {project?.['is-active'] === false ? (
                   <p className="text-2xl font-bold">Project inactive</p>
                 ) : (
                   <p className="text-4xl font-bold">30%</p>
@@ -244,10 +244,10 @@ export default function ProjectHome({ setActiveRoute }) {
               </div>
               <div className="card-body text-center">
                 <h2 className="card-title mx-auto text-xl">
-                  <Icon icon="mingcute:contacts-2-line" className="text-2xl" />{" "}
+                  <Icon icon="mingcute:contacts-2-line" className="text-2xl" />{' '}
                   Contacts
                 </h2>
-                <p className="text-2xl font-bold">{project?.["client-lead"]}</p>
+                <p className="text-2xl font-bold">{project?.['client-lead']}</p>
               </div>
             </div>
           </div>
@@ -255,11 +255,11 @@ export default function ProjectHome({ setActiveRoute }) {
           <Notes />
         </div>
         <div>
-          <Timeline />
+          <Timeline data={project} />
         </div>
       </div>
       <ContactsModal data={project} />
       <TimelineEditModal />
     </main>
-  );
+  )
 }

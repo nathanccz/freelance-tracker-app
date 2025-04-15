@@ -1,60 +1,64 @@
-import { useEffect, useState } from "react";
-import { useAppwriteContext } from "./appwriteContext";
-import LeadList from "./LeadList";
+import { useEffect, useState } from 'react'
+import { useAppwriteContext } from './appwriteContext'
+import LeadList from './LeadList'
 
 export default function Leads({ setActiveRoute, setProjectView }) {
-  const [leads, setLeads] = useState([]);
-  const [sortPreference, setSortPreference] = useState("");
-  const [loading, setLoading] = useState(false);
-  const { projects, handleCreateModalOpen } = useAppwriteContext();
+  const [leads, setLeads] = useState([])
+  const [sortPreference, setSortPreference] = useState('')
+  const [loading, setLoading] = useState(false)
+  const { projects, handleCreateModalOpen } = useAppwriteContext()
 
   useEffect(() => {
-    setActiveRoute("leads");
-  }, []);
+    setActiveRoute('leads')
+  }, [])
 
   useEffect(() => {
-    setLoading(true);
-    setLeads(projects.filter((project) => project["is-active"] === false));
-    const preference = localStorage.getItem("sort_preference");
+    setLoading(true)
+    setLeads(
+      projects.filter(
+        (project) => project['is-active'] === false && !project.completedAt
+      )
+    )
+    const preference = localStorage.getItem('sort_preference')
     if (preference) {
-      setSortPreference(preference);
+      setSortPreference(preference)
     }
-    setLoading(false);
-  }, [projects, sortPreference]);
+    setLoading(false)
+  }, [projects, sortPreference])
 
   useEffect(() => {
-    if (!sortPreference) return;
+    if (!sortPreference) return
 
     switch (sortPreference) {
-      case "latest":
-        sortByLastAdded();
-        break;
-      case "first":
-        sortByFirstAdded();
-        break;
+      case 'latest':
+        sortByLastAdded()
+        break
+      case 'first':
+        sortByFirstAdded()
+        break
       default:
-        console.log("No valid sort preference found.");
+        console.log('No valid sort preference found.')
     }
-  }, [sortPreference]);
+  }, [sortPreference])
 
   const sortByLastAdded = () => {
     const sorted = [...leads].sort(
-      (a, b) => new Date(b["created-at"]) - new Date(a["created-at"])
-    );
-    setLeads(sorted);
-  };
+      (a, b) => new Date(b['created-at']) - new Date(a['created-at'])
+    )
+    setLeads(sorted)
+  }
 
   const sortByFirstAdded = () => {
     const sorted = [...leads].sort(
-      (a, b) => new Date(a["created-at"]) - new Date(b["created-at"])
-    );
-    setLeads(sorted);
-  };
+      (a, b) => new Date(a['created-at']) - new Date(b['created-at'])
+    )
+    setLeads(sorted)
+  }
 
   const handleSetPreferenceToLS = (preference) => {
-    localStorage.setItem("sort_preference", preference);
-    setSortPreference(preference);
-  };
+    localStorage.setItem('sort_preference', preference)
+    setSortPreference(preference)
+  }
 
   return (
     <main className="p-10 w-full">
@@ -74,10 +78,10 @@ export default function Leads({ setActiveRoute, setProjectView }) {
             tabIndex={0}
             className="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm font-bold"
           >
-            <li onClick={() => handleSetPreferenceToLS("latest")}>
+            <li onClick={() => handleSetPreferenceToLS('latest')}>
               <a>Last added</a>
             </li>
-            <li onClick={() => handleSetPreferenceToLS("first")}>
+            <li onClick={() => handleSetPreferenceToLS('first')}>
               <a>First added</a>
             </li>
           </ul>
@@ -86,5 +90,5 @@ export default function Leads({ setActiveRoute, setProjectView }) {
 
       <LeadList data={leads} />
     </main>
-  );
+  )
 }

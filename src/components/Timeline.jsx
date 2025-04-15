@@ -1,8 +1,9 @@
 import { Icon } from '@iconify/react/dist/iconify.js'
 import CompletedConfirmationModal from './CompletedConfirmationModal'
 
-export default function Timeline() {
+export default function Timeline({ data }) {
   const handleSetToComplete = () => {
+    console.log(data.$id)
     document.getElementById('my_modal_completed').showModal()
   }
   return (
@@ -114,7 +115,7 @@ export default function Timeline() {
           Save as Completed
         </button>
       </div>
-      <CompletedConfirmationModal />
+      <CompletedConfirmationModal projectId={data?.$id} />
     </div>
   )
 }

@@ -1,27 +1,30 @@
-import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import { useAppwriteContext } from "./appwriteContext";
-import { useAuthContext } from "./authContext";
-import SkeletonSidebar from "./SkeletonSidebar";
-import SearchBar from "./SearchBar";
+import { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
+import { useAppwriteContext } from './appwriteContext'
+import { useAuthContext } from './authContext'
+import SkeletonSidebar from './SkeletonSidebar'
+import SearchBar from './SearchBar'
 
 export default function Sidebar({ activeRoute }) {
-  const [totalLeads, setTotalLeads] = useState(null);
-  const [totalActive, setTotalActive] = useState(null);
-  const { projects, loading } = useAppwriteContext();
-  const { handleLogoutUser, user } = useAuthContext();
+  const [totalLeads, setTotalLeads] = useState(null)
+  const [totalActive, setTotalActive] = useState(null)
+  const [totalComplete, setTotalComplete] = useState(null)
+  const { projects, loading } = useAppwriteContext()
+  const { handleLogoutUser, user } = useAuthContext()
 
   useEffect(() => {
     if (projects.length === 0) {
-      setTotalActive(0);
-      setTotalLeads(0);
-      return;
+      setTotalActive(0)
+      setTotalLeads(0)
+      setTotalComplete(0)
+      return
     }
-
-    setTotalLeads(projects.filter((project) => !project["is-active"]).length);
-    setTotalActive(projects.filter((project) => project["is-active"]).length);
-    console.log(totalLeads);
-  }, [projects]);
+    console.log(projects)
+    setTotalLeads(projects.filter((project) => !project['is-active']).length)
+    setTotalActive(projects.filter((project) => project['is-active']).length)
+    setTotalComplete(projects.filter((project) => project.completedAt).length)
+    console.log(totalComplete)
+  }, [projects])
 
   return loading ? (
     <SkeletonSidebar />
@@ -40,43 +43,48 @@ export default function Sidebar({ activeRoute }) {
       </div>
       <SearchBar />
       <ul className="menu bg-base-200 rounded-box w-full gap-3 text-lg font-bold">
-        <li className={activeRoute === "dashboard" ? "bg-gray-300" : undefined}>
-          <Link to={"/dashboard"}>Dashboard</Link>
+        <li className={activeRoute === 'dashboard' ? 'bg-gray-300' : undefined}>
+          <Link to={'/dashboard'}>Dashboard</Link>
         </li>
-        <li className={activeRoute === "active" ? "bg-gray-300" : undefined}>
-          <Link to={"/active"} className="flex justify-between">
+        <li className={activeRoute === 'active' ? 'bg-gray-300' : undefined}>
+          <Link to={'/active'} className="flex justify-between">
             <div>Active</div>
             <div className="bg-gray-200 px-2 rounded-full">
-              {totalActive > 0 ? totalActive : ""}
+              {totalActive > 0 ? totalActive : ''}
             </div>
           </Link>
         </li>
-        <li className={activeRoute === "leads" ? "bg-gray-300" : undefined}>
-          <Link to={"/leads"} className="flex justify-between">
+        <li className={activeRoute === 'leads' ? 'bg-gray-300' : undefined}>
+          <Link to={'/leads'} className="flex justify-between">
             <div>Leads</div>
             <div className="bg-gray-200 px-2 rounded-full">
-              {totalLeads > 0 ? totalLeads : ""}
+              {totalLeads > 0 ? totalLeads : ''}
             </div>
           </Link>
         </li>
         <li
           className={
-            activeRoute === "notifications" ? "bg-gray-300" : undefined
+            activeRoute === 'notifications' ? 'bg-gray-300' : undefined
           }
         >
-          <Link to={"/notifications"} className="flex justify-between">
+          <Link to={'/notifications'} className="flex justify-between">
             <div>Notifications</div>
             <div className="bg-gray-200 px-2 rounded-full">5</div>
           </Link>
         </li>
-        <li className={activeRoute === "history" ? "bg-gray-300" : undefined}>
-          <Link to={"/history"}>History</Link>
+        <li className={activeRoute === 'history' ? 'bg-gray-300' : undefined}>
+          <Link to={'/history'} className="flex justify-between">
+            <div>History</div>
+            <div className="bg-gray-200 px-2 rounded-full">
+              {totalComplete > 0 ? totalComplete : ''}
+            </div>
+          </Link>
         </li>
-        <li className={activeRoute === "resources" ? "bg-gray-300" : undefined}>
-          <Link to={"/resources"}>Toolkit</Link>
+        <li className={activeRoute === 'resources' ? 'bg-gray-300' : undefined}>
+          <Link to={'/resources'}>Toolkit</Link>
         </li>
-        <li className={activeRoute === "faqs" ? "bg-gray-300" : undefined}>
-          <Link to={"/faqs"}>FAQs</Link>
+        <li className={activeRoute === 'faqs' ? 'bg-gray-300' : undefined}>
+          <Link to={'/faqs'}>FAQs</Link>
         </li>
       </ul>
 
@@ -87,5 +95,5 @@ export default function Sidebar({ activeRoute }) {
         Log Out
       </button>
     </aside>
-  );
+  )
 }
