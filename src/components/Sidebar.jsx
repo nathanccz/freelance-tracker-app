@@ -20,7 +20,11 @@ export default function Sidebar({ activeRoute }) {
       return
     }
     console.log(projects)
-    setTotalLeads(projects.filter((project) => !project['is-active']).length)
+    setTotalLeads(
+      projects.filter(
+        (project) => !project['is-active'] && !project.completedAt
+      ).length
+    )
     setTotalActive(projects.filter((project) => project['is-active']).length)
     setTotalComplete(projects.filter((project) => project.completedAt).length)
     console.log(totalComplete)
