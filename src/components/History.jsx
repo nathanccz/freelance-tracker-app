@@ -1,18 +1,28 @@
-import { useEffect, useState } from "react";
-import { useAppwriteContext } from "./appwriteContext";
+import { useEffect, useState } from 'react'
+import { useAppwriteContext } from './appwriteContext'
+import HistoryList from './HistoryList'
 
 export default function History({ setActiveRoute }) {
-  const [completed, setCompleted] = useState([]);
-  const { projects } = useAppwriteContext();
+  const [completed, setCompleted] = useState([])
+  const { projects } = useAppwriteContext()
 
   useEffect(() => {
-    setActiveRoute("history");
-  }, []);
+    setActiveRoute('history')
+  }, [])
+
+  useEffect(() => {
+    const filtered = projects?.filter((project) => project.completedAt)
+    setCompleted(filtered)
+  }, [projects])
 
   return (
     <main className="p-10 w-full">
       <h1 className="text-3xl font-bold mb-4">History</h1>
-      {completed.length === 0 && <p>There's nothing here, yet!</p>}
+      {completed.length !== 0 ? (
+        <HistoryList history={completed} />
+      ) : (
+        <p>There's nothing here, yet!</p>
+      )}
     </main>
-  );
+  )
 }

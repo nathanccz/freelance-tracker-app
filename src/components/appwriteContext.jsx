@@ -253,6 +253,7 @@ export default function AppwriteContextProvider({ children }) {
     try {
       await databases.updateDocument(DATABASE_ID, COLLECTION_ID, id, {
         'is-active': true,
+        completedAt: null,
       })
       setMessage('This project is now active!')
       setToastActive(true)
