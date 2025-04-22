@@ -1,5 +1,6 @@
-import { formatDate } from '../../utils/helpers'
 import ProjectCardDropdown from './ProjectCardDropdown'
+import { formatDate, getBusinessIcon } from '../../utils/helpers'
+import { Icon } from '@iconify/react/dist/iconify.js'
 
 export default function HistoryList({ history }) {
   return (
@@ -7,9 +8,9 @@ export default function HistoryList({ history }) {
       {history.map((proj) => (
         <li className="list-row relative">
           <div>
-            <img
-              className="size-10 rounded-box"
-              src="https://img.daisyui.com/images/profile/demo/1@94.webp"
+            <Icon
+              icon={getBusinessIcon(proj['business-type'])}
+              className="text-5xl"
             />
           </div>
           <div>

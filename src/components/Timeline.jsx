@@ -23,10 +23,7 @@ export default function Timeline({ data }) {
         <li>
           <hr className="bg-primary" />
           <div className="timeline-middle">
-            <Icon
-              icon="carbon:checkmark-filled"
-              className="text-xl text-primary"
-            />
+            <Icon icon="akar-icons:radio" className="text-xl text-primary" />
           </div>
           <div className="timeline-end timeline-box">Contract Signing</div>
           <hr className="bg-primary" />
