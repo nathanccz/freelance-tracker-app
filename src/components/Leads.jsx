@@ -1,55 +1,42 @@
 import { useEffect, useState } from 'react'
 import { useAppwriteContext } from './appwriteContext'
+import { Icon } from '@iconify/react/dist/iconify.js'
 import LeadList from './LeadList'
 
 export default function Leads({ setActiveRoute, setProjectView }) {
   const [leads, setLeads] = useState([])
-  const [sortPreference, setSortPreference] = useState('')
-  const [loading, setLoading] = useState(false)
+  const [sortPreference, setSortPreference] = useState(
+    localStorage.getItem('sort_preference')
+  )
   const { projects, handleCreateModalOpen } = useAppwriteContext()
 
-  useEffect(() => {
-    setActiveRoute('leads')
-  }, [])
+  setActiveRoute('leads')
 
   useEffect(() => {
-    setLoading(true)
-    setLeads(
-      projects.filter(
-        (project) => project['is-active'] === false && !project.completedAt
-      )
+    const data = projects.filter(
+      (project) => !project['is-active'] && !project.completedAt
     )
-    const preference = localStorage.getItem('sort_preference')
-    if (preference) {
-      setSortPreference(preference)
-    }
-    setLoading(false)
-  }, [projects, sortPreference])
-
-  useEffect(() => {
-    if (!sortPreference) return
-
     switch (sortPreference) {
       case 'latest':
-        sortByLastAdded()
+        sortByLastAdded(data)
         break
       case 'first':
-        sortByFirstAdded()
+        sortByFirstAdded(data)
         break
       default:
         console.log('No valid sort preference found.')
     }
-  }, [sortPreference])
+  }, [projects, sortPreference])
 
-  const sortByLastAdded = () => {
-    const sorted = [...leads].sort(
+  const sortByLastAdded = (arr) => {
+    const sorted = arr.sort(
       (a, b) => new Date(b['created-at']) - new Date(a['created-at'])
     )
     setLeads(sorted)
   }
 
-  const sortByFirstAdded = () => {
-    const sorted = [...leads].sort(
+  const sortByFirstAdded = (arr) => {
+    const sorted = arr.sort(
       (a, b) => new Date(a['created-at']) - new Date(b['created-at'])
     )
     setLeads(sorted)
@@ -79,10 +66,22 @@ export default function Leads({ setActiveRoute, setProjectView }) {
             className="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm font-bold"
           >
             <li onClick={() => handleSetPreferenceToLS('latest')}>
-              <a>Last added</a>
+              <a>
+                <Icon
+                  icon="icon-park-solid:check-one"
+                  className={sortPreference === 'first' && 'invisible'}
+                />{' '}
+                Last added
+              </a>
             </li>
             <li onClick={() => handleSetPreferenceToLS('first')}>
-              <a>First added</a>
+              <a>
+                <Icon
+                  icon="icon-park-solid:check-one"
+                  className={sortPreference === 'latest' && 'invisible'}
+                />{' '}
+                First added
+              </a>
             </li>
           </ul>
         </div>

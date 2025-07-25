@@ -1,5 +1,5 @@
-import { Icon } from "@iconify/react/dist/iconify.js";
-import { Link } from "react-router-dom";
+import { Icon } from '@iconify/react/dist/iconify.js'
+import { Link } from 'react-router-dom'
 
 export default function Stats({ leads, active }) {
   return (
@@ -12,11 +12,11 @@ export default function Stats({ leads, active }) {
           <Icon
             icon="fa-solid:business-time"
             className="text-xl inline-block"
-          />{" "}
+          />{' '}
           Active Clients
         </div>
         <div className="stat-value text-4xl">{active}</div>
-        <div className="stat-desc">From January 1st to February 1st</div>
+        <div className="stat-desc">From January 1st to April 1st</div>
       </Link>
 
       <Link
@@ -24,7 +24,7 @@ export default function Stats({ leads, active }) {
         className="stat place-items-center hover:bg-slate-200 duration-200 cursor-pointer"
       >
         <div className="stat-title font-bold text-xl">
-          <Icon icon="mdi:leads-outline" className="text-2xl inline-block" />{" "}
+          <Icon icon="mdi:leads-outline" className="text-2xl inline-block" />{' '}
           Leads
         </div>
         <div className="stat-value text-secondary text-4xl">{leads}</div>
@@ -36,9 +36,9 @@ export default function Stats({ leads, active }) {
           <Icon icon="bx:money" className="text-2xl inline-block" /> Income
           (YTD)
         </div>
-        <div className="stat-value text-4xl">$1,200</div>
+        <div className="stat-value text-4xl">$15,200</div>
         <div className="stat-desc">↘︎ 90 (14%)</div>
       </Link>
     </div>
-  );
+  )
 }
