@@ -18,27 +18,23 @@ export default function Leads({ setActiveRoute, setProjectView }) {
     )
     switch (sortPreference) {
       case 'latest':
-        sortByLastAdded(data)
+        sortLeads(data, 'latest')
         break
       case 'first':
-        sortByFirstAdded(data)
+        sortLeads(data, 'first')
         break
       default:
         console.log('No valid sort preference found.')
     }
   }, [projects, sortPreference])
 
-  const sortByLastAdded = (arr) => {
-    const sorted = arr.sort(
-      (a, b) => new Date(b['created-at']) - new Date(a['created-at'])
-    )
-    setLeads(sorted)
-  }
-
-  const sortByFirstAdded = (arr) => {
-    const sorted = arr.sort(
+  const sortLeads = (arr, preference) => {
+    let sorted = arr.sort(
       (a, b) => new Date(a['created-at']) - new Date(b['created-at'])
     )
+    if (preference === 'latest') {
+      sorted = sorted.reverse()
+    }
     setLeads(sorted)
   }
 
