@@ -12,7 +12,8 @@ export default function Sidebar({ activeRoute }) {
   const { projects, loading } = useAppwriteContext()
   const { handleLogoutUser, user } = useAuthContext()
 
-  const getNavLinkClass = ({ isActive }) => (isActive ? 'bg-gray-300' : '')
+  const getNavLinkClass = ({ isActive }) =>
+    isActive ? 'bg-gray-300 block' : 'block'
 
   useEffect(() => {
     if (projects.length === 0) {
@@ -50,52 +51,57 @@ export default function Sidebar({ activeRoute }) {
       <SearchBar />
       <ul className="menu bg-base-200 rounded-box w-full gap-3 text-lg font-bold">
         <li>
-          <NavLink to={'/dashboard'} className={getNavLinkClass}>
+          <NavLink to={'/dashboard'} className={getNavLinkClass} end>
             Dashboard
           </NavLink>
         </li>
         <li>
-          <NavLink to={'/dashboard/active'} className={'flex justify-between'}>
-            <div>Active</div>
-            <div className="bg-gray-200 px-2 rounded-full">
-              {totalActive > 0 ? totalActive : ''}
+          <NavLink to={'/dashboard/active'} className={getNavLinkClass}>
+            <div className="flex justify-between">
+              <div>Active</div>
+              <div className="bg-gray-200 px-2 rounded-full">
+                {totalActive > 0 ? totalActive : ''}
+              </div>
             </div>
           </NavLink>
         </li>
-        <li className={activeRoute === 'leads' ? 'bg-gray-300' : undefined}>
-          <NavLink to={'/dashboard/leads'} className="flex justify-between">
-            <div>Leads</div>
-            <div className="bg-gray-200 px-2 rounded-full">
-              {totalLeads > 0 ? totalLeads : ''}
+        <li>
+          <NavLink to={'/dashboard/leads'} className={getNavLinkClass}>
+            <div className="flex justify-between">
+              <div>Leads</div>
+              <div className="bg-gray-200 px-2 rounded-full">
+                {totalLeads > 0 ? totalLeads : ''}
+              </div>
             </div>
           </NavLink>
         </li>
-        <li
-          className={
-            activeRoute === 'notifications' ? 'bg-gray-300' : undefined
-          }
-        >
-          <NavLink
-            to={'/dashboard/notifications'}
-            className="flex justify-between"
-          >
-            <div>Notifications</div>
-            <div className="bg-gray-200 px-2 rounded-full">5</div>
+        <li>
+          <NavLink to={'/dashboard/notifications'} className={getNavLinkClass}>
+            <div className="flex justify-between">
+              <div>Notifications</div>
+              <div className="bg-gray-200 px-2 rounded-full">5</div>
+            </div>
           </NavLink>
         </li>
         <li className={activeRoute === 'history' ? 'bg-gray-300' : undefined}>
-          <NavLink to={'/dashboard/history'} className="flex justify-between">
-            <div>History</div>
-            <div className="bg-gray-200 px-2 rounded-full">
-              {totalComplete > 0 ? totalComplete : ''}
+          <NavLink to={'/dashboard/history'} className={getNavLinkClass}>
+            <div className="flex justify-between">
+              <div>History</div>
+              <div className="bg-gray-200 px-2 rounded-full">
+                {totalComplete > 0 ? totalComplete : ''}
+              </div>
             </div>
           </NavLink>
         </li>
-        <li className={activeRoute === 'resources' ? 'bg-gray-300' : undefined}>
-          <NavLink to={'/dashboard/resources'}>Toolkit</NavLink>
+        <li>
+          <NavLink to={'/dashboard/resources'} className={getNavLinkClass}>
+            Toolkit
+          </NavLink>
         </li>
-        <li className={activeRoute === 'faqs' ? 'bg-gray-300' : undefined}>
-          <NavLink to={'/dashboard/faqs'}>FAQs</NavLink>
+        <li>
+          <NavLink to={'/dashboard/faqs'} className={getNavLinkClass}>
+            FAQs
+          </NavLink>
         </li>
       </ul>
 

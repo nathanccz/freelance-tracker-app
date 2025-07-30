@@ -5,7 +5,7 @@ export default function Stats({ leads, active }) {
   return (
     <div className="stats shadow w-full stats-vertical md:stats-horizontal">
       <Link
-        to="/active"
+        to="/dashboard/active"
         className="stat place-items-center hover:bg-slate-200 duration-200 cursor-pointer"
       >
         <div className="stat-title font-bold text-xl">
@@ -20,7 +20,7 @@ export default function Stats({ leads, active }) {
       </Link>
 
       <Link
-        to="/leads"
+        to="/dashboard/leads"
         className="stat place-items-center hover:bg-slate-200 duration-200 cursor-pointer"
       >
         <div className="stat-title font-bold text-xl">
