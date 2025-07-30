@@ -10,8 +10,6 @@ export default function Leads({ setActiveRoute, setProjectView }) {
   )
   const { projects, handleCreateModalOpen } = useAppwriteContext()
 
-  setActiveRoute('leads')
-
   useEffect(() => {
     const data = projects.filter(
       (project) => !project['is-active'] && !project.completedAt

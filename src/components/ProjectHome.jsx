@@ -8,7 +8,7 @@ import { useParams } from 'react-router-dom'
 import ContactsModal from './ContactsModal'
 import TimelineEditModal from './TimelineEditModal'
 
-export default function ProjectHome({ setActiveRoute }) {
+export default function ProjectHome({}) {
   const { id } = useParams()
   const {
     projects,
@@ -26,7 +26,6 @@ export default function ProjectHome({ setActiveRoute }) {
   const project = projects.find((project) => project.$id === id)
 
   useEffect(() => {
-    setActiveRoute('project')
     setContractInput(project?.['contract-amount'])
     setAmountPaidInput(project?.['amount-paid'])
   }, [projects])

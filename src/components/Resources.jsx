@@ -1,11 +1,7 @@
-import { useEffect, useState } from "react";
-import { Icon } from "@iconify/react/dist/iconify.js";
+import { useEffect, useState } from 'react'
+import { Icon } from '@iconify/react/dist/iconify.js'
 
 export default function Resources({ setActiveRoute }) {
-  useEffect(() => {
-    setActiveRoute("resources");
-  }, []);
-
   return (
     <main className="p-10 w-full">
       <h1 className="text-3xl font-bold mb-4">Toolkit</h1>
@@ -179,5 +175,5 @@ export default function Resources({ setActiveRoute }) {
         </section>
       </div>
     </main>
-  );
+  )
 }

@@ -4,12 +4,7 @@ import Card from './Card'
 
 export default function ActiveClients({ setActiveRoute }) {
   const [clients, setClients] = useState([])
-
   const { projects } = useAppwriteContext()
-
-  useEffect(() => {
-    setActiveRoute('active')
-  }, [])
 
   useEffect(() => {
     console.log(projects)

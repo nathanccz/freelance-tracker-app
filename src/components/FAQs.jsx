@@ -1,9 +1,6 @@
-import { useEffect } from "react";
+import { useEffect } from 'react'
 
 export default function FAQs({ setActiveRoute }) {
-  useEffect(() => {
-    setActiveRoute("faqs");
-  }, []);
   return (
     <main className="p-10 w-full">
       <h1 className="text-3xl font-bold mb-4">
@@ -129,5 +126,5 @@ export default function FAQs({ setActiveRoute }) {
         </div>
       </div>
     </main>
-  );
+  )
 }

@@ -1,11 +1,7 @@
-import { useEffect, useState } from "react";
-import { Icon } from "@iconify/react/dist/iconify.js";
+import { useEffect, useState } from 'react'
+import { Icon } from '@iconify/react/dist/iconify.js'
 
 export default function Notifications({ setActiveRoute }) {
-  useEffect(() => {
-    setActiveRoute("notifications");
-  }, []);
-
   return (
     <main className="p-10 w-full">
       <h1 className="text-3xl font-bold mb-4">Notifications</h1>
@@ -35,5 +31,5 @@ export default function Notifications({ setActiveRoute }) {
         </section>
       </div>
     </main>
-  );
+  )
 }

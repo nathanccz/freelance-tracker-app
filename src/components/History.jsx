@@ -7,10 +7,6 @@ export default function History({ setActiveRoute }) {
   const { projects } = useAppwriteContext()
 
   useEffect(() => {
-    setActiveRoute('history')
-  }, [])
-
-  useEffect(() => {
     const filtered = projects?.filter((project) => project.completedAt)
     setCompleted(filtered)
   }, [projects])
