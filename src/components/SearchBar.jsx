@@ -1,34 +1,34 @@
-import { useState } from "react";
-import { useAppwriteContext } from "./appwriteContext";
-import { Link, useNavigate } from "react-router-dom";
+import { useState } from 'react'
+import { useAppwriteContext } from './appwriteContext'
+import { Link, useNavigate } from 'react-router-dom'
 
 export default function SearchBar() {
-  const [results, setResults] = useState(null);
-  const [inputText, setInputText] = useState("");
-  const { projects } = useAppwriteContext();
-  const navigate = useNavigate();
+  const [results, setResults] = useState(null)
+  const [inputText, setInputText] = useState('')
+  const { projects } = useAppwriteContext()
+  const navigate = useNavigate()
 
   const handleInputChange = (e) => {
-    const newValue = e.target.value.toLowerCase();
-    setInputText(newValue);
+    const newValue = e.target.value.toLowerCase()
+    setInputText(newValue)
 
     if (!newValue) {
-      setResults("");
-      return;
+      setResults('')
+      return
     }
 
     const filtered = projects.filter((project) =>
-      project["business-name"].toLowerCase().includes(newValue)
-    );
-
-    setResults(filtered);
-  };
+      project['business-name'].toLowerCase().startsWith(newValue)
+    )
+    console.log(filtered)
+    setResults(filtered)
+  }
 
   const handleClickResult = (projectId) => {
-    setResults(null);
-    setInputText("");
-    navigate(`/project/${projectId}`);
-  };
+    setResults(null)
+    setInputText('')
+    navigate(`/project/${projectId}`)
+  }
 
   return (
     <div className="w-full mb-4">
@@ -63,11 +63,21 @@ export default function SearchBar() {
             {results.length > 0 ? (
               results.map((result) => (
                 <li
-                  className="cursor-pointer hover:bg-slate-100 transition duration-300 p-3 font-bold"
+                  className="cursor-pointer hover:bg-slate-100 transition duration-300 p-3"
                   key={result.$id}
                   onClick={() => handleClickResult(result.$id)}
                 >
-                  {result["business-name"]}
+                  <span className="font-bold block">
+                    {result['business-name']}
+                  </span>
+                  <span className="text-sm italic">
+                    {result['business-type']}{' '}
+                    {result['is-active']
+                      ? '(Active client)'
+                      : result.completedAt
+                      ? '(Completed)'
+                      : '(Lead)'}
+                  </span>
                 </li>
               ))
             ) : (
@@ -77,5 +87,5 @@ export default function SearchBar() {
         </div>
       )}
     </div>
-  );
+  )
 }

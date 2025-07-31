@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react'
 import { useAppwriteContext } from './appwriteContext'
 import Card from './Card'
+import Skeleton from './Skeleton'
 
-export default function ActiveClients({ setActiveRoute }) {
+export default function ActiveClients() {
   const [clients, setClients] = useState([])
-  const { projects } = useAppwriteContext()
+  const { projects, loading } = useAppwriteContext()
 
   useEffect(() => {
     console.log(projects)
@@ -15,7 +16,9 @@ export default function ActiveClients({ setActiveRoute }) {
     <Card data={client} key={client.$id} />
   ))
 
-  return (
+  return loading ? (
+    <Skeleton />
+  ) : (
     <main className="p-10 w-full">
       <h1 className="text-3xl font-bold mb-4">Active Clients</h1>
       {listOfClients.length > 0 ? (

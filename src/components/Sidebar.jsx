@@ -87,9 +87,11 @@ export default function Sidebar({ activeRoute }) {
           <NavLink to={'/dashboard/history'} className={getNavLinkClass}>
             <div className="flex justify-between">
               <div>History</div>
-              <div className="bg-gray-200 px-2 rounded-full">
-                {totalComplete > 0 ? totalComplete : ''}
-              </div>
+              {totalComplete > 0 && (
+                <div className="bg-gray-200 px-2 rounded-full">
+                  {totalComplete}
+                </div>
+              )}
             </div>
           </NavLink>
         </li>

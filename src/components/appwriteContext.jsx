@@ -362,7 +362,6 @@ export default function AppwriteContextProvider({ children }) {
 
   const setProjectToComplete = async (id) => {
     try {
-      console.log(id)
       const response = await databases.updateDocument(
         DATABASE_ID,
         COLLECTION_ID,
