@@ -14,11 +14,13 @@ import FAQs from './components/FAQs.jsx'
 import ProjectHome from './components/ProjectHome.jsx'
 import Login from './pages/Login.jsx'
 import AuthContextProvider from './components/authContext.jsx'
+import ErrorPage from './pages/ErrorPage.jsx'
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <Home />,
+    errorElement: <ErrorPage />,
   },
   {
     path: '/login',

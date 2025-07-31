@@ -7,6 +7,7 @@ import Notes from './Notes'
 import { useParams } from 'react-router-dom'
 import ContactsModal from './ContactsModal'
 import TimelineEditModal from './TimelineEditModal'
+import ErrorPage from '../pages/ErrorPage'
 
 export default function ProjectHome({}) {
   const { id } = useParams()
@@ -24,6 +25,10 @@ export default function ProjectHome({}) {
   const [isHovered, setIsHovered] = useState(false)
 
   const project = projects.find((project) => project.$id === id)
+
+  if (!project) {
+    return <ErrorPage invalidProject />
+  }
 
   useEffect(() => {
     setContractInput(project?.['contract-amount'])
