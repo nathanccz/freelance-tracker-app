@@ -14,26 +14,28 @@ export default function Leads({ setActiveRoute, setProjectView }) {
     const data = projects.filter(
       (project) => !project['is-active'] && !project.completedAt
     )
+    sortProjects(data)
+  }, [projects, sortPreference])
+
+  const sortProjects = (arr) => {
+    let projects = arr.slice()
+
     switch (sortPreference) {
       case 'latest':
-        sortLeads(data, 'latest')
+        projects = projects.sort(
+          (a, b) => new Date(b['created-at']) - new Date(a['created-at'])
+        )
         break
       case 'first':
-        sortLeads(data, 'first')
+        projects = projects.sort(
+          (a, b) => new Date(a['created-at']) - new Date(b['created-at'])
+        )
         break
       default:
         console.log('No valid sort preference found.')
+        break
     }
-  }, [projects, sortPreference])
-
-  const sortLeads = (arr, preference) => {
-    let sorted = arr.sort(
-      (a, b) => new Date(a['created-at']) - new Date(b['created-at'])
-    )
-    if (preference === 'latest') {
-      sorted = sorted.reverse()
-    }
-    setLeads(sorted)
+    setLeads(projects)
   }
 
   const handleSetPreferenceToLS = (preference) => {
@@ -62,8 +64,11 @@ export default function Leads({ setActiveRoute, setProjectView }) {
             <li onClick={() => handleSetPreferenceToLS('latest')}>
               <a>
                 <Icon
-                  icon="icon-park-solid:check-one"
-                  className={sortPreference === 'first' && 'invisible'}
+                  icon={
+                    sortPreference === 'latest'
+                      ? 'icon-park-solid:check-one'
+                      : 'material-symbols:circle-outline'
+                  }
                 />{' '}
                 Last added
               </a>
@@ -71,8 +76,11 @@ export default function Leads({ setActiveRoute, setProjectView }) {
             <li onClick={() => handleSetPreferenceToLS('first')}>
               <a>
                 <Icon
-                  icon="icon-park-solid:check-one"
-                  className={sortPreference === 'latest' && 'invisible'}
+                  icon={
+                    sortPreference === 'first'
+                      ? 'icon-park-solid:check-one'
+                      : 'material-symbols:circle-outline'
+                  }
                 />{' '}
                 First added
               </a>
