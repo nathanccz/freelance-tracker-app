@@ -4,6 +4,7 @@ import Stats from './Stats'
 import { useAuthContext } from './authContext'
 import FinanceChart from './FinanceChart'
 import Skeleton from './Skeleton'
+import { Icon } from '@iconify/react/dist/iconify.js'
 
 export default function Main({ setActiveRoute }) {
   const [totalLeads, setTotalLeads] = useState(null)
@@ -29,7 +30,8 @@ export default function Main({ setActiveRoute }) {
         Welcome, {user?.name.split(' ')[0]}
       </h1>
       <button className="btn btn-primary mb-3" onClick={handleCreateModalOpen}>
-        Create New Project
+        Create New Project{' '}
+        <Icon icon="mingcute:file-new-fill" className="text-xl" />
       </button>
       <Stats leads={totalLeads || 0} active={totalActive || 0} />
       <div className="p-8 flex items-center justify-center">

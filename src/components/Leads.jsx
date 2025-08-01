@@ -52,10 +52,11 @@ export default function Leads({ setActiveRoute, setProjectView }) {
           onClick={handleCreateModalOpen}
         >
           Add New Lead
+          <Icon icon="subway:add" />
         </button>
         <div className="dropdown dropdown-left">
           <div tabIndex={0} role="button" className="btn m-1">
-            Sort
+            Sort <Icon icon="material-symbols:sort" className="text-xl" />
           </div>
           <ul
             tabIndex={0}

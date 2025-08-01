@@ -66,11 +66,11 @@ export default function ActiveClients() {
           className="btn btn-primary mb-3"
           onClick={handleCreateModalOpen}
         >
-          Add Active Client
+          Add Active Client <Icon icon="subway:add" />
         </button>
         <div className="dropdown dropdown-left">
           <div tabIndex={0} role="button" className="btn m-1">
-            Sort
+            Sort <Icon icon="material-symbols:sort" className="text-xl" />
           </div>
           <ul
             tabIndex={0}
