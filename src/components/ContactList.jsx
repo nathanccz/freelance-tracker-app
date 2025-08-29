@@ -1,9 +1,9 @@
-import { Icon } from "@iconify/react/dist/iconify.js";
-import { useEffect, useState } from "react";
-import { isValidEmail, isEmpty } from "../../utils/helpers";
-import { useAppwriteContext } from "./appwriteContext";
-import { filterDefaultFields } from "../../utils/helpers";
-import Dropdown from "./Dropdown";
+import { Icon } from '@iconify/react/dist/iconify.js'
+import { useEffect, useState } from 'react'
+import { isValidEmail, isEmpty } from '../../utils/helpers'
+import { useAppwriteContext } from './appwriteContext'
+import { filterDefaultFields } from '../../utils/helpers'
+import Dropdown from './Dropdown'
 
 export default function ContactList({
   data,
@@ -14,57 +14,59 @@ export default function ContactList({
   contactToEdit,
   setContactToEdit,
   projectId,
+  primaryObj,
 }) {
-  const [formData, setFormData] = useState({});
+  console.log(contactToEdit)
+  const [formData, setFormData] = useState({})
   const formFields = {
-    name: "",
-    role: "",
-    email: "",
-    phone: "",
-  };
+    name: '',
+    role: '',
+    email: '',
+    phone: '',
+  }
   const { handleAddNewContact, handleEditContact, setContactToDelete } =
-    useAppwriteContext();
+    useAppwriteContext()
 
   useEffect(() => {
     if (isEditingContact) {
-      setFormData(filterDefaultFields(contactToEdit));
+      setFormData(filterDefaultFields(contactToEdit))
     } else if (isAddingNewContact) {
-      setFormData(formFields);
+      setFormData(formFields)
     }
-  }, [isEditingContact, isAddingNewContact]);
+  }, [isEditingContact, isAddingNewContact])
 
   const handleInputChange = (event) => {
-    const { name, value } = event.target;
+    const { name, value } = event.target
     setFormData((prevFormData) => ({
       ...prevFormData,
       [name]: value,
-    }));
-  };
+    }))
+  }
 
   const handleClickSave = () => {
     if (isEmpty(formData)) {
-      alert("Please fill out contact information.");
-      return;
+      alert('Please fill out contact information.')
+      return
     }
-    if (formData.name === "") {
-      alert("A name is required");
-      return;
+    if (formData.name === '') {
+      alert('A name is required')
+      return
     }
     if (formData.email.length > 0 && !isValidEmail(formData.email)) {
-      alert("Please enter a valid email");
-      return;
+      alert('Please enter a valid email')
+      return
     }
     if (isAddingNewContact) {
-      handleAddNewContact(projectId, formData);
+      handleAddNewContact(projectId, formData)
     } else if (isEditingContact) {
-      handleEditContact(contactToEdit.$id, formData);
+      handleEditContact(contactToEdit.$id, formData, primaryObj)
     }
 
-    setIsAddingNewContact(false);
-    setIsEditingContact(false);
-    setFormData({});
-    setContactToEdit([]);
-  };
+    setIsAddingNewContact(false)
+    setIsEditingContact(false)
+    setFormData({})
+    setContactToEdit([])
+  }
 
   return (
     <ul className="list bg-base-100 rounded-box shadow-md">
@@ -133,7 +135,7 @@ export default function ContactList({
               autoComplete="off"
               onChange={handleInputChange}
               value={
-                isEditingContact ? formData?.name : formData?.["client-lead"]
+                isEditingContact ? formData?.name : formData?.['client-lead']
               }
             />
             <input
@@ -144,7 +146,7 @@ export default function ContactList({
               autoComplete="off"
               onChange={handleInputChange}
               value={
-                isAddingNewContact ? formData?.["client-lead"] : formData?.role
+                isAddingNewContact ? formData?.['client-lead'] : formData?.role
               }
             />
             <input
@@ -175,5 +177,5 @@ export default function ContactList({
         </li>
       )}
     </ul>
-  );
+  )
 }

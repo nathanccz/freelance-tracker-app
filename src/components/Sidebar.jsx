@@ -5,7 +5,7 @@ import { useAuthContext } from './authContext'
 import SkeletonSidebar from './SkeletonSidebar'
 import SearchBar from './SearchBar'
 
-export default function Sidebar({ activeRoute }) {
+export default function Sidebar() {
   const [totalLeads, setTotalLeads] = useState(null)
   const [totalActive, setTotalActive] = useState(null)
   const [totalComplete, setTotalComplete] = useState(null)
@@ -83,7 +83,7 @@ export default function Sidebar({ activeRoute }) {
             </div>
           </NavLink>
         </li>
-        <li className={activeRoute === 'history' ? 'bg-gray-300' : undefined}>
+        <li>
           <NavLink to={'/dashboard/history'} className={getNavLinkClass}>
             <div className="flex justify-between">
               <div>History</div>

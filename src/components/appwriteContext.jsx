@@ -127,7 +127,8 @@ export default function AppwriteContextProvider({ children }) {
     document.getElementById('my_modal_5').showModal()
   }
 
-  const handleEditProject = async (data) => {
+  const handleEditProject = async (data, id) => {
+    console.log(data)
     const document =
       typeof data['is-active'] === 'boolean'
         ? {
@@ -145,7 +146,7 @@ export default function AppwriteContextProvider({ children }) {
       const result = await databases.updateDocument(
         DATABASE_ID,
         COLLECTION_ID,
-        projectToEdit.$id,
+        id || projectToEdit.$id,
         document
       )
       setMessage('Project was updated!')
@@ -213,21 +214,35 @@ export default function AppwriteContextProvider({ children }) {
     }
   }
 
-  const handleEditContact = async (contactId, document) => {
-    try {
-      const response = await databases.updateDocument(
-        DATABASE_ID,
-        CONTACTS_ID,
-        contactId,
-        document
-      )
-      setMessage('Contact was updated!')
-      setToastActive(true)
-      await new Promise((resolve) => setTimeout(resolve, 3000))
-      setToastActive(false)
-      setMessage('')
-    } catch (error) {
-      console.log(error)
+  const handleEditContact = async (contactId, document, primaryObj) => {
+    if (contactId) {
+      try {
+        const response = await databases.updateDocument(
+          DATABASE_ID,
+          CONTACTS_ID,
+          contactId,
+          document
+        )
+        setMessage('Contact was updated!')
+        setToastActive(true)
+        await new Promise((resolve) => setTimeout(resolve, 3000))
+        setToastActive(false)
+        setMessage('')
+      } catch (error) {
+        console.log(error)
+      }
+    } else {
+      const filtered = (obj) => {
+        const result = {}
+        for (const key in obj) {
+          if (!key.startsWith('$')) {
+            result[key] = obj[key]
+          }
+        }
+
+        return result
+      }
+      handleEditProject(filtered(primaryObj), primaryObj.$id)
     }
   }
 

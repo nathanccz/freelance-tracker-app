@@ -13,9 +13,7 @@ export default function Hero({ isLogin }) {
         {!isLogin ? (
           <div className="hero-content text-center text-white">
             <div className="max-w-lg">
-              <h1 className="mb-5 text-[2.5rem] font-bold">
-                #100Devs Freelance Hub
-              </h1>
+              <h1 className="mb-5 text-[2.5rem] font-bold">Freelance Hub</h1>
               <p className="mb-5">
                 Get everything you need to freelance with confidence.
               </p>
