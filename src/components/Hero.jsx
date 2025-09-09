@@ -13,9 +13,10 @@ export default function Hero({ isLogin }) {
         {!isLogin ? (
           <div className="hero-content text-center text-white">
             <div className="max-w-lg">
-              <h1 className="mb-5 text-[2.5rem] font-bold">Freelance Hub</h1>
+              <h1 className="mb-5 text-[2.5rem] font-bold">ClientFlow</h1>
               <p className="mb-5">
-                Get everything you need to freelance with confidence.
+                Get everything you need to track client leads and freelance with
+                confidence.
               </p>
               <label className="input input-bordered flex items-center gap-2 mb-3 mx-auto">
                 <svg
