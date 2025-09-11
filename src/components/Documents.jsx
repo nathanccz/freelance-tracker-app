@@ -1,14 +1,14 @@
-import { Icon } from "@iconify/react/dist/iconify.js";
-import { useAppwriteContext } from "./appwriteContext";
-import { useEffect, useState } from "react";
-import { formatDate } from "../../utils/helpers";
+import { Icon } from '@iconify/react/dist/iconify.js'
+import { useAppwriteContext } from './appwriteContext'
+import { useEffect, useState } from 'react'
+import { formatDate } from '../../utils/helpers'
 
 const documentTypes = [
-  { type: "proposal", label: "Proposal", category: "Client Agreements" },
-  { type: "contract", label: "Contract", category: "Client Agreements" },
-  { type: "invoice", label: "Invoice", category: "Financial" },
-  { type: "changeOrder", label: "Change Order", category: "Financial" },
-];
+  { type: 'proposal', label: 'Proposal', category: 'Client Agreements' },
+  { type: 'contract', label: 'Contract', category: 'Client Agreements' },
+  { type: 'invoice', label: 'Invoice', category: 'Financial' },
+  { type: 'changeOrder', label: 'Change', category: 'Financial' },
+]
 
 function DocumentItem({
   doc,
@@ -73,38 +73,44 @@ function DocumentItem({
         <span className="loading loading-spinner loading-lg"></span>
       )}
     </div>
-  );
+  )
 }
 
 export default function Documents({ projectId }) {
   const { handleFileUpload, documents, handleFileDownload, handleDeleteFile } =
-    useAppwriteContext();
-  const [loading, setLoading] = useState({});
-  const [allDocuments, setAllDocuments] = useState({});
+    useAppwriteContext()
+  const [loading, setLoading] = useState({})
+  const [allDocuments, setAllDocuments] = useState({})
 
   useEffect(() => {
     const filtered = documents?.reduce((obj, curr) => {
-      if (curr.projectId === projectId) obj[curr.documentType] = curr;
-      return obj;
-    }, {});
-    setAllDocuments(filtered);
-  }, [documents, projectId]);
+      if (curr.projectId === projectId) obj[curr.documentType] = curr
+      return obj
+    }, {})
+    setAllDocuments(filtered)
+  }, [documents, projectId])
 
   const handleClickUpload = async (inputId, documentType) => {
-    if (!document.getElementById(inputId).files[0]) {
-      alert("Please choose a file to upload");
-      return;
+    const file = document.getElementById(inputId).files[0]
+    if (!file) {
+      alert('Please choose a file to upload')
+      return
     }
-    setLoading((prev) => ({ ...prev, [documentType]: true }));
-    await handleFileUpload(projectId, inputId, documentType);
-    setLoading((prev) => ({ ...prev, [documentType]: false }));
-  };
+    if (file.size >= 10000000) {
+      alert('File size exceeds limit. Please choose a file under 10MB.')
+      return
+    }
+    console.log(file)
+    setLoading((prev) => ({ ...prev, [documentType]: true }))
+    await handleFileUpload(projectId, inputId, documentType)
+    setLoading((prev) => ({ ...prev, [documentType]: false }))
+  }
 
   const groupedDocuments = documentTypes.reduce((acc, doc) => {
-    acc[doc.category] = acc[doc.category] || [];
-    acc[doc.category].push({ ...doc, data: allDocuments[doc.type] });
-    return acc;
-  }, {});
+    acc[doc.category] = acc[doc.category] || []
+    acc[doc.category].push({ ...doc, data: allDocuments[doc.type] })
+    return acc
+  }, {})
 
   return (
     <div>
@@ -130,5 +136,5 @@ export default function Documents({ projectId }) {
         </section>
       ))}
     </div>
-  );
+  )
 }
