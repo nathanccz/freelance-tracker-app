@@ -10,6 +10,9 @@ For the Mini Hackathon for Jobuary 2025, I created a freelancing tracker app for
 
 It's built on React and Vite, plus Appwrite for back-end functionality.
 
+
+![clientflow-screen-recording-final](https://github.com/user-attachments/assets/0440a88d-3854-4b1c-b27f-95a195c41e1c)
+
 ---
 
 ## 🔧 How to Run the Code
