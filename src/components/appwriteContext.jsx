@@ -69,8 +69,26 @@ export default function AppwriteContextProvider({ children }) {
     fetchData()
   }, [user, toastActive])
 
+  const isExistingProject = async (name) => {
+    try {
+      const result = await databases.listDocuments(DATABASE_ID, COLLECTION_ID, [
+        Query.equal('business-name', [name]),
+      ])
+      return result.documents.length > 0
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   const createProject = async (data) => {
     try {
+      const existing = await isExistingProject(data['business-name'])
+
+      if (existing) {
+        alert('This business name already exists. Please try again.')
+        return
+      }
+
       const response = await databases.createDocument(
         DATABASE_ID,
         COLLECTION_ID,
