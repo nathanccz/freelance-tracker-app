@@ -85,7 +85,9 @@ export default function AppwriteContextProvider({ children }) {
       const existing = await isExistingProject(data['business-name'])
 
       if (existing) {
-        alert('This business name already exists. Please try again.')
+        alert(
+          'This business name already exists. Please enter a different one.'
+        )
         return
       }
 
